@@ -1,0 +1,462 @@
+unit uPesquisaPadrao;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Data.DB, Vcl.Grids, Vcl.DBGrids,
+  Vcl.StdCtrls, Vcl.Buttons, Datasnap.DBClient, Vcl.Imaging.jpeg, Vcl.ExtCtrls,
+  Datasnap.Provider;
+
+type
+  TfrmPesquisaPadrao = class(TForm)
+    GroupBox1: TGroupBox;
+    GroupBox2: TGroupBox;
+    edtPesquisa: TEdit;
+    dbgPesquisa: TDBGrid;
+    dsPesquisa: TDataSource;
+    ClientDataSet1: TClientDataSet;
+    Label1: TLabel;
+    Panel4: TPanel;
+    L_PESQUISA: TLabel;
+    Label2: TLabel;
+    procedure FormShow(Sender: TObject);
+    procedure edtPesquisaKeyDown(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
+    procedure dbgPesquisaKeyDown(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
+    procedure edtPesquisaChange(Sender: TObject);
+    procedure FormKeyPress(Sender: TObject; var Key: Char);
+    procedure edtPesquisaExit(Sender: TObject);
+    procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
+  private
+    { Private declarations }
+    ConsultaSQL,
+    WhereIsNull,
+    WhereNotExists,
+    WhereParametro : string;
+  public
+    { Public declarations }
+    CDS : TClientDataSet;
+    Sql,
+    Tabela,
+    CampoBusca,
+    CampoBusca2,
+    CampoBusca3,
+    CampoChave,
+    LegendaGrouBox,TB_PESQUISA,sSqlJoin : string;
+  end;
+
+var
+  frmPesquisaPadrao: TfrmPesquisaPadrao;
+
+implementation
+
+{$R *.dfm}
+
+uses uDM, uRemessaProducao, uPrecoMalharia, uTingimento, uProgramacao;
+
+procedure TfrmPesquisaPadrao.dbgPesquisaKeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  if (Key = VK_RETURN) and not (CDS.IsEmpty)then
+  begin
+    ModalResult := mrOk;
+    Close;
+  end;
+
+  if key = VK_ESCAPE then
+  begin
+    close;
+  end;
+
+
+end;
+
+procedure TfrmPesquisaPadrao.edtPesquisaChange(Sender: TObject);
+begin
+  if TB_PESQUISA = 'Preço-Malharia' then
+  begin
+    CDS.Close;
+    CDS.CommandText := ConsultaSQL +sSqlJoin +WhereParametro;
+    CDS.Params.ParamByName('P').Value := '%' + AnsiUpperCase(edtPesquisa.Text) + '%';
+    CDS.Open;
+  end;
+
+  if TB_PESQUISA = 'Preço-Tinturaria' then
+  begin
+    CDS.Close;
+    CDS.CommandText := ConsultaSQL +sSqlJoin +WhereParametro;
+    CDS.Params.ParamByName('P').Value := '%' + AnsiUpperCase(edtPesquisa.Text) + '%';
+    CDS.Open;
+  end;
+
+  if TB_PESQUISA = 'Producao' then
+  begin
+    CDS.Close;
+    CDS.CommandText := ConsultaSQL +sSqlJoin +WhereParametro;
+    CDS.Params.ParamByName('P').Value := '%' + AnsiUpperCase(edtPesquisa.Text) + '%';
+    CDS.Open;
+  end;
+
+  if TB_PESQUISA = 'Nota Fiscal Malharia' then
+  begin
+    CDS.Close;
+    CDS.CommandText := ConsultaSQL +sSqlJoin +WhereParametro;
+    CDS.Params.ParamByName('P').Value := '%' + AnsiUpperCase(edtPesquisa.Text) + '%';
+    CDS.Open;
+  end;
+
+  if TB_PESQUISA = 'NfMalharia' then
+  begin
+    CDS.Close;
+    CDS.CommandText := ConsultaSQL +sSqlJoin +WhereParametro;
+    CDS.Params.ParamByName('P').Value := '%' + AnsiUpperCase(edtPesquisa.Text) + '%';
+    CDS.Open;
+  end;
+
+
+  if TB_PESQUISA = 'Fornecedor' then
+  begin
+    CDS.Close;
+    CDS.CommandText := ConsultaSQL +sSqlJoin +WhereParametro;
+    CDS.Params.ParamByName('P').Value := '%' + AnsiUpperCase(edtPesquisa.Text) + '%';
+    CDS.Open;
+  end;
+
+
+  if TB_PESQUISA = 'ItemNF' then
+  begin
+    CDS.Close;
+    CDS.CommandText := ConsultaSQL + WhereParametro;
+    CDS.Params.ParamByName('P').Value := '%' + AnsiUpperCase(edtPesquisa.Text) + '%';
+    CDS.Open;
+  end;
+
+  if TB_PESQUISA = 'Categoria' then
+  begin
+    CDS.Close;
+    CDS.CommandText := ConsultaSQL + WhereParametro;
+    CDS.Params.ParamByName('P').Value := '%' + AnsiUpperCase(edtPesquisa.Text) + '%';
+    CDS.Open;
+  end;
+
+
+  if TB_PESQUISA = 'Acabamento' then
+  begin
+    CDS.Close;
+    CDS.CommandText := ConsultaSQL + WhereParametro;
+    CDS.Params.ParamByName('P').Value := '%' + AnsiUpperCase(edtPesquisa.Text) + '%';
+    CDS.Open;
+  end;
+
+  if TB_PESQUISA = 'ArtigoMalharia' then
+  begin
+    CDS.Close;
+    CDS.CommandText := ConsultaSQL + WhereParametro;
+    CDS.Params.ParamByName('P').Value := '%' + AnsiUpperCase(edtPesquisa.Text) + '%';
+    CDS.Open;
+  end;
+
+  if TB_PESQUISA = 'Artigo' then
+  begin
+    CDS.Close;
+    CDS.CommandText := ConsultaSQL + sSqlJoin+WhereParametro;
+    CDS.Params.ParamByName('P').Value := '%' + AnsiUpperCase(edtPesquisa.Text) + '%';
+    CDS.Open;
+  end;
+
+
+  if TB_PESQUISA = 'Grupo Empresa' then
+  begin
+    CDS.Close;
+    CDS.CommandText := ConsultaSQL + WhereParametro;
+    CDS.Params.ParamByName('P').Value := '%' + AnsiUpperCase(edtPesquisa.Text) + '%';
+    CDS.Open;
+  end;
+
+
+  if TB_PESQUISA = 'Materia-Prima' then
+  begin
+    CDS.Close;
+    CDS.CommandText := ConsultaSQL + WhereParametro;
+    CDS.Params.ParamByName('P').Value := '%' + AnsiUpperCase(edtPesquisa.Text) + '%';
+    CDS.Open;
+  end;
+
+  if TB_PESQUISA <> '' then
+  begin
+    CDS.Close;
+//    CDS.CommandText := ConsultaSQL + sSqlJoin + WhereIsNull;
+    CDS.CommandText := ConsultaSQL + sSqlJoin + WhereParametro;
+    CDS.Params.ParamByName('P').Value := '%' + AnsiUpperCase(edtPesquisa.Text) + '%';
+    CDS.Open;
+  end
+  else
+  begin
+    CDS.Close;
+    CDS.CommandText := ConsultaSQL + sSqlJoin + WhereParametro;
+    CDS.Params.ParamByName('P').Value := '%' + AnsiUpperCase(edtPesquisa.Text) + '%';
+    CDS.Open;
+  end;
+
+
+
+
+  {CDS.Close;
+  CDS.CommandText := ConsultaSQL + WhereParametro;
+  CDS.Params.ParamByName('P').Value := '%' + AnsiUpperCase(edtPesquisa.Text) + '%';
+  CDS.Open;}
+end;
+
+procedure TfrmPesquisaPadrao.edtPesquisaExit(Sender: TObject);
+begin
+  dbgPesquisa.SetFocus;
+end;
+
+procedure TfrmPesquisaPadrao.edtPesquisaKeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  if (Key in [VK_UP, VK_DOWN]) and not(CDS.IsEmpty) then
+      dbgPesquisa.SetFocus;
+
+  if (Key = VK_RETURN) then
+  // and (edtPesquisa.Text <> '') then
+  begin
+   { CDS.Close;
+    CDS.CommandText := ConsultaSQL + WhereParametro;
+    CDS.Params.ParamByName('P').Value := '%' + AnsiUpperCase(edtPesquisa.Text) + '%';
+    CDS.Open;}
+    edtPesquisaExit(Self);
+    dbgPesquisa.SetFocus;
+  end;
+  if key = VK_ESCAPE then
+  begin
+    close;
+  end;
+
+end;
+
+procedure TfrmPesquisaPadrao.FormKeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  if key = VK_ESCAPE then
+  begin
+    close;
+  end;
+end;
+
+procedure TfrmPesquisaPadrao.FormKeyPress(Sender: TObject; var Key: Char);
+begin
+  if Key = #13 then
+  begin
+    Key := #0;
+    Perform(WM_NEXTDLGCTL, 0, 0);
+  end;
+
+end;
+
+procedure TfrmPesquisaPadrao.FormShow(Sender: TObject);
+Var
+  gpEmpresa : string;
+begin
+  ConsultaSQL :=sql +Format(' FROM %S ', [Tabela]);
+  WhereIsNull := Format(' WHERE %S IS NOT NULL', [CampoChave]);
+  WhereParametro := Format(' WHERE UPPER(%S) LIKE :P ',[CampoBusca]);
+  WhereParametro := WhereParametro+Format(' or  UPPER(%S) LIKE :P',[campobusca2]);
+
+  if CampoBusca3 <> '' then
+    WhereParametro := WhereParametro+Format(' or  UPPER(%S) LIKE :P',[campobusca3]);
+
+  if TB_PESQUISA = 'Nota Fiscal Malharia' then
+  begin
+     sSqlJoin := ' LEFT OUTER JOIN TB_FORNECEDOR F ON (F.ID_FORNECEDOR = RP.ID_FORNECEDOR) '+
+                 ' JOIN TB_FORNECEDOR FF ON (FF.ID_FORNECEDOR = RP.ID_FOR_REMESSA) '+
+                 ' JOIN TB_FORNECEDOR FT ON (FT.ID_FORNECEDOR = RP.ID_FORN_TINT)    '+
+                 ' JOIN TB_CLIENTE C ON (C.ID_CLIENTE = RP.ID_CLIENTE) ';
+  end;
+
+  if TB_PESQUISA = 'NfMalharia' then
+  begin
+    DM.cdsDinamica.Close;
+    DM.cdsDinamica.IndexFieldNames:='';
+    DM.cdsDinamica.CommandText := ' SELECT C.ID_GRUPO_EMPRESA FROM TB_CLIENTE C '+
+                              ' WHERE C.ID_CLIENTE = '+QuotedStr(frmRemessaProducao.DBEdit20.Text);
+    DM.cdsDinamica.Open;
+
+    gpEmpresa := DM.cdsDinamica.Fields[0].AsString;
+
+     sSqlJoin := ' LEFT OUTER JOIN tb_grupo_empresa GE ON (GE.id_grupo_empresa = A.id_grupo_empresa) ';
+  end;
+
+
+  if TB_PESQUISA = 'Nota Fiscal Tingimento' then
+  begin
+    DM.cdsDinamica.Close;
+    DM.cdsDinamica.IndexFieldNames:='';
+    DM.cdsDinamica.CommandText := ' SELECT C.ID_GRUPO_EMPRESA FROM TB_CLIENTE C '+
+                              ' WHERE C.ID_CLIENTE = '+QuotedStr(frmTingimento.DBEdit3.Text);
+    DM.cdsDinamica.Open;
+
+    gpEmpresa := DM.cdsDinamica.Fields[0].AsString;
+
+     sSqlJoin :=  ' LEFT OUTER JOIN TB_FORNECEDOR F ON (F.ID_FORNECEDOR = RP.ID_FORNECEDOR)'+
+                  ' JOIN TB_FORNECEDOR FF ON (FF.ID_FORNECEDOR = RP.ID_FOR_TINGIMENTO) '+
+                  ' JOIN TB_FORNECEDOR FT ON (FT.ID_FORNECEDOR = RP.ID_FORN_TINT)      '+
+                  ' JOIN TB_CLIENTE C ON (C.ID_CLIENTE = RP.ID_CLIENTE)                '+
+                  ' LEFT OUTER JOIN tb_grupo_empresa GE ON (GE.id_grupo_empresa = C.ID_GRUPO_EMPRESA) ';
+  end;
+
+
+  if TB_PESQUISA = 'Programacao Tinturaria' then
+  begin
+    DM.cdsDinamica.Close;
+    DM.cdsDinamica.IndexFieldNames:='';
+    DM.cdsDinamica.CommandText := ' SELECT C.ID_GRUPO_EMPRESA FROM TB_CLIENTE C '+
+                              ' WHERE C.ID_CLIENTE = '+QuotedStr(frmProgramacao.DBEdit20.Text);
+    DM.cdsDinamica.Open;
+
+    gpEmpresa := DM.cdsDinamica.Fields[0].AsString;
+
+     sSqlJoin :=  ' LEFT OUTER JOIN TB_FORNECEDOR F ON (F.ID_FORNECEDOR = RP.ID_FOR_TINTURARIA)          '+
+                  ' LEFT OUTER JOIN TB_TRANSPORTADORA T ON (T.ID_TRANSPORTADORA = RP.ID_TRANSPORTADORA)  '+
+                  ' JOIN TB_CLIENTE C ON (C.ID_CLIENTE = RP.ID_CLIENTE)                                  '+
+                  ' LEFT OUTER JOIN tb_grupo_empresa GE ON (GE.id_grupo_empresa = C.ID_GRUPO_EMPRESA)    '+
+                  ' JOIN TB_MUNICIPIOS M ON (M.CODIGO_MUNIC = C.CODIGO_MUNIC)                            ';
+  end;
+
+
+  if TB_PESQUISA = 'Fornecedor' then
+  begin
+     sSqlJoin :=  ' JOIN TB_MUNICIPIOS M ON (M.CODIGO_MUNIC = F.CODIGO_MUNIC)'+
+                  ' LEFT JOIN TB_CATEGORIA  C ON (C.ID_CATEGORIA = F.ID_CATEGORIA)';
+  end;
+  if TB_PESQUISA = 'Cliente' then
+  begin
+     sSqlJoin :=  ' JOIN tb_municipios M ON (M.codigo_munic = C.codigo_munic)'+
+                  ' LEFT OUTER JOIN tb_grupo_empresa GE ON (GE.id_grupo_empresa = C.id_grupo_empresa)';
+  end;
+
+
+  if TB_PESQUISA = 'Producao' then
+  begin
+     sSqlJoin :=  ' JOIN TB_FORNECEDOR F ON (F.ID_FORNECEDOR = P.ID_FORNCEDOR)'+
+                  ' JOIN TB_FORNECEDOR FF ON (FF.ID_FORNECEDOR = P.ID_FORN_REM)'+
+                  ' JOIN TB_CLIENTE C ON (C.ID_CLIENTE = P.ID_CLIENTE)         ';
+  end;
+
+  if TB_PESQUISA = 'Preço-Malharia' then
+  begin
+     sSqlJoin :=  ' LEFT OUTER JOIN TB_CLIENTE C ON (C.ID_CLIENTE = PM.ID_CLIENTE) '+
+                  ' JOIN TB_FORNECEDOR F ON (F.ID_FORNECEDOR = PM.ID_MALHARIA) '+
+                  ' LEFT OUTER JOIN TB_MUNICIPIOS M ON (M.CODIGO_MUNIC = C.CODIGO_MUNIC)  '+
+                  ' JOIN TB_MUNICIPIOS MM ON (MM.CODIGO_MUNIC = F.CODIGO_MUNIC)'+
+                  ' LEFT OUTER JOIN tb_grupo_empresa GE ON (GE.id_grupo_empresa = PM.id_grupo_empresa) ';
+  end;
+
+  if TB_PESQUISA = 'Preço-Tinturaria' then
+  begin
+     sSqlJoin :=  ' LEFT OUTER JOIN TB_CLIENTE C ON (C.ID_CLIENTE = PT.ID_CLIENTE)'+
+                  ' JOIN TB_FORNECEDOR F ON (F.ID_FORNECEDOR = PT.ID_FORNECEDOR)'+
+                  ' LEFT OUTER JOIN tb_grupo_empresa ge ON (GE.id_grupo_empresa = PT.id_grupo_empresa)';
+
+  end;
+
+  if TB_PESQUISA = 'Acabamento' then
+  begin
+    CDS.Close;
+    CDS.CommandText := ConsultaSQL + WhereIsNull;
+    CDS.Open;
+  end;
+
+  if TB_PESQUISA = 'Categoria' then
+  begin
+    CDS.Close;
+    CDS.CommandText := ConsultaSQL + WhereIsNull;
+    CDS.Open;
+  end;
+
+
+  if TB_PESQUISA = 'ArtigoMalharia' then
+  begin
+    WhereNotExists := ' WHERE NOT EXISTS(SELECT IP.ID_ARTIGO FROM TB_ITEM_PRECO_MALHARIA IP '+
+                      ' WHERE IP.ID_ARTIGO = A.ID_ARTIGO AND IP.ID_PRECO_MALHARIA = :ID_ARTIGO)';
+
+    WhereIsNull := WhereNotExists;
+    CDS.Close;
+    CDS.CommandText := ConsultaSQL + WhereIsNull;
+    CDS.Open;
+  end;
+
+  if TB_PESQUISA = 'ItemNF' then
+  begin
+    CDS.Close;
+    CDS.CommandText := ConsultaSQL + WhereIsNull;
+    CDS.Open;
+  end;
+
+
+  if TB_PESQUISA = 'Grupo Empresa' then
+  begin
+    CDS.Close;
+    CDS.CommandText := ConsultaSQL + WhereIsNull;
+    CDS.Open;
+  end;
+
+  if TB_PESQUISA = 'Artigo' then
+  begin
+     sSqlJoin :=  ' LEFT OUTER JOIN tb_grupo_empresa GE ON (GE.id_grupo_empresa = A.id_grupo_empresa)';
+  end;
+
+
+
+  if TB_PESQUISA = 'Materia-Prima' then
+  begin
+    CDS.Close;
+    CDS.CommandText := ConsultaSQL + WhereIsNull;
+    CDS.Open;
+  end;
+  if TB_PESQUISA = 'Preço-Malharia' then
+  begin
+    WhereIsNull := WhereIsNull+' AND F.ID_CATEGORIA = 1 ';
+    CDS.Close;
+    CDS.CommandText := ConsultaSQL +sSqlJoin+ WhereIsNull;
+    CDS.Open;
+  end;
+
+  if TB_PESQUISA = 'NfMalharia' then
+  begin
+    WhereIsNull := WhereIsNull+' AND A.ID_GRUPO_EMPRESA = '+gpEmpresa;
+    CDS.Close;
+    CDS.CommandText := ConsultaSQL +sSqlJoin+ WhereIsNull;
+    CDS.Open;
+  end;
+
+  if TB_PESQUISA = 'Preço-Tinturaria' then
+  begin
+    CDS.Close;
+    CDS.CommandText := ConsultaSQL +sSqlJoin+ WhereIsNull;
+    CDS.Open;
+  end;
+
+ { if TB_PESQUISA <> '' then
+  begin
+    CDS.Close;
+    CDS.CommandText := ConsultaSQL +sSqlJoin + WhereIsNull;
+    CDS.Open;
+  end
+  else
+  begin
+    CDS.Close;
+    CDS.CommandText := ConsultaSQL + WhereIsNull;
+    CDS.Open;
+  end;}
+
+  dsPesquisa.DataSet := CDS;
+  if (LegendaGrouBox <> '') then
+    GroupBox1.Caption := LegendaGrouBox
+      else
+        GroupBox1.Caption := 'Pesquisar Registros';
+end;
+
+end.
