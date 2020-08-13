@@ -111,11 +111,17 @@ object frmPesquisaPadrao: TfrmPesquisaPadrao
         item
           Color = clBtnFace
           Expanded = False
-          Width = 150
+          Width = 158
           Visible = True
         end
         item
           Expanded = False
+          Width = 101
+          Visible = True
+        end
+        item
+          Expanded = False
+          Width = 155
           Visible = True
         end>
     end

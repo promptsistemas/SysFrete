@@ -1,0 +1,51 @@
+unit uSenha;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.Buttons,
+  Vcl.Imaging.pngimage, Vcl.Imaging.jpeg, Vcl.ExtCtrls;
+
+type
+  TfrmSenha = class(TForm)
+    Panel1: TPanel;
+    Label1: TLabel;
+    ValorNome: TEdit;
+    Image2: TImage;
+    Label2: TLabel;
+    Image1: TImage;
+    ValorSenha: TEdit;
+    Image3: TImage;
+    Image4: TImage;
+    Panel2: TPanel;
+    BitBtn1: TBitBtn;
+    BitBtn2: TBitBtn;
+    procedure BitBtn1Click(Sender: TObject);
+    procedure BitBtn2Click(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  frmSenha: TfrmSenha;
+
+implementation
+
+{$R *.dfm}
+
+uses U_LIB, uDM;
+
+procedure TfrmSenha.BitBtn1Click(Sender: TObject);
+begin
+//
+end;
+
+procedure TfrmSenha.BitBtn2Click(Sender: TObject);
+begin
+//
+end;
+
+end.

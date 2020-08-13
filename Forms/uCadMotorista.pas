@@ -175,6 +175,7 @@ begin
   Tipo := 'Edit';
   DM.cdsMotorista.Edit;
   GerenCiaBotoes;
+  dbedit1.SetFocus;
 end;
 
 procedure TfrmCadMotorista.bb_enviaDJClick(Sender: TObject);
@@ -509,12 +510,12 @@ end;
 end;
  result := textofinal;
 
-if (DM.cdsMotoristaCPF.EditMask = '###.###.###-##') then
+{if (DM.cdsMotoristaCPF.EditMask = '###.###.###-##') then
  begin
    DM.cdsMotoristaCPF.EditMask := '';
    DBEdit2.SetFocus;
    Exit;
- end;
+ end;}
 
   if Tipo = 'Cancelar' then
   begin

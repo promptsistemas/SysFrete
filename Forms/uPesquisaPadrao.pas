@@ -43,6 +43,7 @@ type
     CampoBusca,
     CampoBusca2,
     CampoBusca3,
+    CampoBusca4,
     CampoChave,
     LegendaGrouBox,TB_PESQUISA,sSqlJoin : string;
   end;
@@ -104,6 +105,29 @@ begin
     CDS.Params.ParamByName('P').Value := '%' + AnsiUpperCase(edtPesquisa.Text) + '%';
     CDS.Open;
   end;
+  if TB_PESQUISA = 'Veiculo' then
+  begin
+    CDS.Close;
+    CDS.CommandText := ConsultaSQL +sSqlJoin +WhereParametro;
+    CDS.Params.ParamByName('P').Value := '%' + AnsiUpperCase(edtPesquisa.Text) + '%';
+    CDS.Open;
+  end;
+  if TB_PESQUISA = 'FreteServico' then
+  begin
+    CDS.Close;
+    CDS.CommandText := ConsultaSQL +sSqlJoin +WhereParametro;
+    CDS.Params.ParamByName('P').Value := '%' + AnsiUpperCase(edtPesquisa.Text) + '%';
+    CDS.Open;
+  end;
+
+  if TB_PESQUISA = 'Frete' then
+  begin
+    CDS.Close;
+    CDS.CommandText := ConsultaSQL +sSqlJoin +WhereParametro;
+    CDS.Params.ParamByName('P').Value := '%' + AnsiUpperCase(edtPesquisa.Text) + '%';
+    CDS.Open;
+  end;
+
 
 end;
 
@@ -166,6 +190,9 @@ begin
   if CampoBusca3 <> '' then
     WhereParametro := WhereParametro+Format(' or  UPPER(%S) LIKE :P',[campobusca3]);
 
+  if CampoBusca4 <> '' then
+    WhereParametro := WhereParametro+Format(' or  UPPER(%S) LIKE :P',[campobusca4]);
+
   if TB_PESQUISA = 'Cliente' then
   begin
      sSqlJoin :=  ' JOIN tb_municipios M ON (M.codigo_munic = C.cod_munic)';
@@ -178,12 +205,38 @@ begin
 
   end;
 
+  if TB_PESQUISA = 'Veiculo' then
+  begin
+     sSqlJoin :=  ' JOIN TB_MARCA M ON (M.ID_MARCA = V.ID_MARCA) '+
+                  ' JOIN TB_MODELO O ON (O.ID_MODELO = V.ID_MODELO)'+
+                  ' JOIN TB_MUNICIPIOS C ON (C.CODIGO_MUNIC = V.COD_MUNIC)';
+
+  end;
+
+  if TB_PESQUISA = 'Frete' then
+  begin
+    sSqlJoin := ' JOIN TB_MUNICIPIOS MO ON (MO.CODIGO_MUNIC = F.COD_MUNIC_ORIGEM)'+
+                ' JOIN TB_MUNICIPIOS MD ON (MD.CODIGO_MUNIC = F.COD_MUNIC_DESTINO)'+
+                ' JOIN TB_VEICULO V ON (V.ID_VEICULO = F.ID_VEICULO)'+
+                ' JOIN TB_MARCA MA ON (MA.ID_MARCA = V.ID_MARCA)    '+
+                ' JOIN TB_MODELO ML ON (ML.ID_MODELO = V.ID_MODELO) '+
+                ' JOIN TB_MOTORISTA MT ON (MT.ID_MOTORISTA = F.ID_MOTORISTA)'+
+                ' JOIN TB_CLIENTE C ON (C.ID_CLIENTE = F.ID_CLIENTE)        '+
+                ' JOIN TB_MUNICIPIOS MC ON (MC.CODIGO_MUNIC = C.COD_MUNIC)  ';
+  end;
 
   dsPesquisa.DataSet := CDS;
   if (LegendaGrouBox <> '') then
-    GroupBox1.Caption := LegendaGrouBox
-      else
-        GroupBox1.Caption := 'Pesquisar Registros';
+  begin
+    L_PESQUISA.Caption := 'Pesquisar Registros';
+    GroupBox1.Caption := LegendaGrouBox;
+  end
+  else
+  begin
+    GroupBox1.Caption := LegendaGrouBox;
+    L_PESQUISA.Caption := 'Pesquisar Registros';
+  end;
 end;
+
 
 end.

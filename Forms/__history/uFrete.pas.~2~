@@ -1,0 +1,263 @@
+unit uFrete;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.Buttons, Vcl.StdCtrls, Vcl.DBCtrls,
+  Vcl.ExtCtrls, Data.DB, Vcl.Grids, Vcl.DBGrids, Vcl.Mask, Vcl.ComCtrls;
+
+type
+  TfrmFrete = class(TForm)
+    Panel1: TPanel;
+    DBText1: TDBText;
+    Label17: TLabel;
+    Label18: TLabel;
+    SpeedButton3: TSpeedButton;
+    P_BOTOES: TPanel;
+    BB_NOVO: TBitBtn;
+    BB_EDITAR: TBitBtn;
+    BB_GRAVAR: TBitBtn;
+    BB_CANCELAR: TBitBtn;
+    BB_EXCLUIR: TBitBtn;
+    BB_PESQUISAR: TBitBtn;
+    BB_SAIR: TBitBtn;
+    BB_CONCLUIR: TBitBtn;
+    DBNavigator1: TDBNavigator;
+    PageControl1: TPageControl;
+    TabSheet1: TTabSheet;
+    P_PRODUCAO: TPanel;
+    Label1: TLabel;
+    Label2: TLabel;
+    Label4: TLabel;
+    Label7: TLabel;
+    Label10: TLabel;
+    Label11: TLabel;
+    Label9: TLabel;
+    Label3: TLabel;
+    Label5: TLabel;
+    Label21: TLabel;
+    Label22: TLabel;
+    Label6: TLabel;
+    DBEdit1: TDBEdit;
+    DBEdit2: TDBEdit;
+    DBEdit4: TDBEdit;
+    DBEdit7: TDBEdit;
+    DBEdit10: TDBEdit;
+    DBEdit11: TDBEdit;
+    DBEdit3: TDBEdit;
+    DBEdit5: TDBEdit;
+    DBEdit16: TDBEdit;
+    DBEdit19: TDBEdit;
+    DBEdit20: TDBEdit;
+    DBEdit8: TDBEdit;
+    TabSheet2: TTabSheet;
+    DBGrid1: TDBGrid;
+    SpeedButton2: TSpeedButton;
+    DBEdit6: TDBEdit;
+    Label8: TLabel;
+    DBEdit9: TDBEdit;
+    Label12: TLabel;
+    DBEdit12: TDBEdit;
+    Label13: TLabel;
+    DBEdit13: TDBEdit;
+    Label14: TLabel;
+    DBEdit14: TDBEdit;
+    Label15: TLabel;
+    DBEdit15: TDBEdit;
+    DBEdit17: TDBEdit;
+    Label16: TLabel;
+    Label19: TLabel;
+    DBEdit18: TDBEdit;
+    DBEdit21: TDBEdit;
+    Label20: TLabel;
+    Label23: TLabel;
+    DBEdit22: TDBEdit;
+    Telefone: TLabel;
+    SpeedButton1: TSpeedButton;
+    DBEdit23: TDBEdit;
+    Label24: TLabel;
+    DBEdit24: TDBEdit;
+    DBEdit25: TDBEdit;
+    Label25: TLabel;
+    Label26: TLabel;
+    DBEdit26: TDBEdit;
+    Label27: TLabel;
+    SpeedButton4: TSpeedButton;
+    SpeedButton5: TSpeedButton;
+    DBComboBox2: TDBComboBox;
+    Label28: TLabel;
+    DBEdit27: TDBEdit;
+    Label29: TLabel;
+    DBEdit28: TDBEdit;
+    Label30: TLabel;
+    DBComboBox1: TDBComboBox;
+    Label31: TLabel;
+    DBEdit29: TDBEdit;
+    Label32: TLabel;
+    DBEdit30: TDBEdit;
+    Label33: TLabel;
+    DBEdit31: TDBEdit;
+    Label34: TLabel;
+    DBMemo1: TDBMemo;
+    Label35: TLabel;
+    Bevel1: TBevel;
+    BB_INCLUIR: TBitBtn;
+    BB_ALTERAR: TBitBtn;
+    BB_SALVAR: TBitBtn;
+    BB_CANC: TBitBtn;
+    BB_EXC: TBitBtn;
+    p_item: TPanel;
+    Label36: TLabel;
+    Label37: TLabel;
+    Faturado: TLabel;
+    SpeedButton6: TSpeedButton;
+    Label38: TLabel;
+    Label39: TLabel;
+    DBEdit32: TDBEdit;
+    DBEdit33: TDBEdit;
+    DBEdit34: TDBEdit;
+    DBEdit35: TDBEdit;
+    DBEdit36: TDBEdit;
+    PageControl2: TPageControl;
+    TabSheet3: TTabSheet;
+    DBGrid2: TDBGrid;
+    DBEdit37: TDBEdit;
+    Label40: TLabel;
+    DBEdit38: TDBEdit;
+    Label41: TLabel;
+    procedure SpeedButton3Click(Sender: TObject);
+    procedure SpeedButton2Click(Sender: TObject);
+    procedure FormKeyPress(Sender: TObject; var Key: Char);
+    procedure SpeedButton1Click(Sender: TObject);
+    procedure SpeedButton4Click(Sender: TObject);
+    procedure SpeedButton5Click(Sender: TObject);
+    procedure DBComboBox2Exit(Sender: TObject);
+    procedure DBComboBox1Exit(Sender: TObject);
+    procedure DBMemo1Exit(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  frmFrete: TfrmFrete;
+
+implementation
+
+{$R *.dfm}
+
+uses U_LIB, UD_PESQUISA, uDM;
+
+procedure TfrmFrete.DBComboBox1Exit(Sender: TObject);
+begin
+  if DBComboBox1.Text = '' then
+  begin
+    ShowMessage('Informe o Estado');
+    DBComboBox2.SetFocus;
+  end
+  else
+  begin
+    DM.cdsDinamica.Close;
+    DM.cdsDinamica.IndexFieldNames:='';
+    DM.cdsDinamica.CommandText := 'SELECT M.COD_MUNIC,M.nome,M.UF FROM TB_MUNICIPIOS M WHERE M.UF ='+QuotedStr(DM.cdsClienteUF.AsString);
+    DM.cdsDinamica.Open;
+    Pesquisa(DM.cdsDinamica,['NOME','UF'],['Municipios','Estado'],[50,2],'','','','','Municipios','Municipios');
+    DM.cdsFreteCOD_MUNIC_DESTINO.AsString := DM.cdsDinamica.Fields[0].AsString;
+    DM.cdsFreteCIDADE_DESTINO.AsString := DM.cdsDinamica.Fields[1].AsString;
+    dbedit10.SetFocus;
+  end;
+
+end;
+
+procedure TfrmFrete.DBComboBox2Exit(Sender: TObject);
+begin
+  if DBComboBox2.Text = '' then
+  begin
+    ShowMessage('Informe o Estado');
+    DBComboBox2.SetFocus;
+  end
+  else
+  begin
+    DM.cdsDinamica.Close;
+    DM.cdsDinamica.IndexFieldNames:='';
+    DM.cdsDinamica.CommandText := 'SELECT M.COD_MUNIC,M.nome,M.UF FROM TB_MUNICIPIOS M WHERE M.UF ='+QuotedStr(DM.cdsClienteUF.AsString);
+    DM.cdsDinamica.Open;
+    Pesquisa(DM.cdsDinamica,['NOME','UF'],['Municipios','Estado'],[50,2],'','','','','Municipios','Municipios');
+    DM.cdsFreteCOD_MUNIC_ORIGEM.AsString := DM.cdsDinamica.Fields[0].AsString;
+    DM.cdsFreteCIDADE_ORIGEM.AsString := DM.cdsDinamica.Fields[1].AsString;
+    DBComboBox1.SetFocus;
+  end;
+end;
+
+procedure TfrmFrete.DBMemo1Exit(Sender: TObject);
+begin
+  BB_GRAVAR.SetFocus;
+end;
+
+procedure TfrmFrete.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+  Action := caFree;
+  frmFrete := nil;
+
+end;
+
+procedure TfrmFrete.FormKeyPress(Sender: TObject; var Key: Char);
+begin
+  if Key = #13 then
+  begin
+    Key := #0;
+    Perform(WM_NEXTDLGCTL, 0, 0);
+  end;
+end;
+
+procedure TfrmFrete.SpeedButton1Click(Sender: TObject);
+begin
+  DM.cdsMotorista.Close;
+  DM.cdsMotorista.Open;
+  Pesquisa(DM.cdsMotorista,['NOME','ID_MOTORISTA'],['Nome do Motorista','Código'],[40,4],'','','','','Motorista','Motorista');
+  DM.cdsFreteID_MOTORISTA.AsInteger := DM.cdsMotoristaID_MOTORISTA.AsInteger;
+  DM.cdsFreteMOTORISTA.AsString     := DM.cdsMotoristaNOME.AsString;
+  DBEdit2.SetFocus;
+end;
+
+procedure TfrmFrete.SpeedButton2Click(Sender: TObject);
+begin
+  DM.cdsCliente.Close;
+  DM.cdsCliente.Open;
+  Pesquisa(DM.cdsCliente,['NOME','ID_CLIENTE'],['Nome do Cliente','Código'],[40,4],'','','','','Cliente','Cliente');
+  DM.cdsFreteID_CLIENTE.AsInteger := DM.cdsClienteID_CLIENTE.AsInteger;
+  DM.cdsFreteCLIENTE.AsString     := DM.cdsClienteNOME.AsString;
+  DBEdit4.SetFocus;
+end;
+
+procedure TfrmFrete.SpeedButton3Click(Sender: TObject);
+begin
+  Close;
+end;
+
+procedure TfrmFrete.SpeedButton4Click(Sender: TObject);
+begin
+  DM.cdsMarcas.Close;
+  DM.cdsMarcas.Open;
+  Pesquisa(DM.cdsMarcas,['NOME','ID_MARCA'],['Marca','Código'],[40,4],'','','','','Marca','Marca');
+  DM.cdsFreteID_MARCA.AsInteger := DM.cdsMarcasID_MARCA.AsInteger;
+  DM.cdsFreteMARCA.AsString     := DM.cdsMarcasNOME.AsString;
+  DBEdit24.SetFocus;
+
+end;
+
+procedure TfrmFrete.SpeedButton5Click(Sender: TObject);
+begin
+  DM.cdsModelos.Close;
+  DM.cdsModelos.Open;
+  Pesquisa(DM.cdsModelos,['DESCRICAO','ID_MODELO'],['Modelo','Código'],[40,4],'','','','','Modelo','Modelo');
+  DM.cdsFreteID_MODELO.AsInteger := DM.cdsModelosID_MODELO.AsInteger;
+  DM.cdsFreteMODELO.AsString     := DM.cdsModelosDESCRICAO.AsString;
+  DBEdit16.SetFocus;
+
+end;
+
+end.

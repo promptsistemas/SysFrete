@@ -13,18 +13,22 @@ uses
   uPesquisaPadrao in 'Forms\uPesquisaPadrao.pas' {frmPesquisaPadrao},
   uCadMotorista in 'Forms\uCadMotorista.pas' {frmCadMotorista},
   uCadMarcas in 'Forms\uCadMarcas.pas' {frmCadMarcas},
-  uCadModelos in 'Forms\uCadModelos.pas' {frmCadModelos};
+  uCadModelos in 'Forms\uCadModelos.pas' {frmCadModelos},
+  uCadVeiculo in 'Forms\uCadVeiculo.pas' {frmCadVeiculo},
+  uSenha in 'Forms\uSenha.pas' {frmSenha},
+  ufrmFrete in 'Forms\ufrmFrete.pas' {frmFrete};
 
 {$R *.res}
 
 begin
   Application.Initialize;
   Application.MainFormOnTaskbar := True;
-  Application.CreateForm(TfrmMenu, frmMenu);
   Application.CreateForm(TDM, DM);
+  Application.CreateForm(TfrmMenu, frmMenu);
   Application.CreateForm(TFD_PESQUISA, FD_PESQUISA);
   Application.CreateForm(TfrmConsultaCNPJ, frmConsultaCNPJ);
   Application.CreateForm(TfrmConsultaCPF, frmConsultaCPF);
   Application.CreateForm(TfrmPesquisaPadrao, frmPesquisaPadrao);
+  Application.CreateForm(TfrmSenha, frmSenha);
   Application.Run;
 end.

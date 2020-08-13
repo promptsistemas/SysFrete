@@ -6,7 +6,8 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.DBCtrls, Vcl.StdCtrls, Vcl.Buttons,
   Vcl.ExtCtrls,DB, Vcl.Mask, ACBrBase, ACBrSocket, ACBrCEP, Vcl.XPMan,
-  Vcl.ActnMan, Vcl.ActnColorMaps, ACBrConsultaCPF, ACBrConsultaCNPJ;
+  Vcl.ActnMan, Vcl.ActnColorMaps, ACBrConsultaCPF, ACBrConsultaCNPJ,
+  ACBrValidador;
 
 type
   TfrmCadCliente = class(TForm)
@@ -88,6 +89,7 @@ type
     DBMemo12: TDBMemo;
     SpeedButton3: TSpeedButton;
     DBComboBox4: TDBComboBox;
+    ACBrValidador1: TACBrValidador;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure BB_SAIRClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -593,14 +595,14 @@ end;
 end;
  result := textofinal;
 
-if ( DM.cdsClienteCNPJ_CPF.EditMask = '##.###.###/####-##') or (DM.cdsClienteCNPJ_CPF.EditMask = '###.###.###-##') then
+{if ( DM.cdsClienteCNPJ_CPF.EditMask = '##.###.###/####-##') or (DM.cdsClienteCNPJ_CPF.EditMask = '###.###.###-##') then
  begin
    DM.cdsClienteCNPJ_CPF.EditMask := '';
    DBEdit2.SetFocus;
    Exit;
  end;
 
-  DM.cdsClienteCNPJ_CPF.EditMask := '';
+  DM.cdsClienteCNPJ_CPF.EditMask := '';}
   if Tipo = 'Cancelar' then
   begin
     DM.cdsCliente.Cancel;
@@ -695,6 +697,7 @@ begin
     L_NOME.Caption := 'Razão Social';
     L_RG.Caption   := 'Insc.Estadual';
     DBComboBox1.Text := 'Juridica';
+    DM.cdsClienteCNPJ_CPF.EditMask := '##.###.###/####-##';
   end
   else
   begin
@@ -702,6 +705,7 @@ begin
     L_NOME.Caption := 'Nome Completo';
     L_RG.Caption   := 'RG';
     DBComboBox1.Text := 'Fisica';
+    DM.cdsClienteCNPJ_CPF.EditMask := '###.###.###-##';
   end;
 end;
 

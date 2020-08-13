@@ -1,0 +1,173 @@
+unit uSenha;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.Buttons,
+  Vcl.Imaging.pngimage, Vcl.Imaging.jpeg, Vcl.ExtCtrls;
+
+type
+  TfrmSenha = class(TForm)
+    Panel1: TPanel;
+    Label1: TLabel;
+    ValorNome: TEdit;
+    Image2: TImage;
+    Label2: TLabel;
+    Image1: TImage;
+    ValorSenha: TEdit;
+    Image3: TImage;
+    Image4: TImage;
+    Panel2: TPanel;
+    btnOK: TBitBtn;
+    BtnCancelar: TBitBtn;
+    procedure btnOKClick(Sender: TObject);
+    procedure BtnCancelarClick(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure FormShow(Sender: TObject);
+    procedure FormKeyPress(Sender: TObject; var Key: Char);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+    Fecha : Boolean;
+  end;
+
+var
+  frmSenha: TfrmSenha;
+  NrTentativas : integer;
+
+implementation
+
+{$R *.dfm}
+
+uses U_LIB, uDM, uMenu;
+
+procedure TfrmSenha.btnOKClick(Sender: TObject);
+var
+mensagem: string;
+begin
+  frmMenu.bSenha := False;
+    if ValorNome.Text <> '' then
+    begin
+      with DM do
+      begin
+        CDSDINAMICA.Close;
+        CDSDINAMICA.CommandText := ('SELECT * FROM TB_USUARIO');
+        CDSDINAMICA.Open;
+        if CDSDINAMICA.Locate('NOME_USUARIO', ValorNome.Text, []) then
+        begin
+          if DecryptMsg(CDSDINAMICA.FieldByName('SENHA').AsString,10) <> ValorSenha.Text then
+          begin
+            Application.MessageBox('Senha inválida, tente novamente.', 'Atenção', MB_ICONWarning);
+            NrTentativas := NrTentativas +1;
+            if NrTentativas = 3 then
+            begin
+              ShowMessage('Número de tentativas ultrapassadas');
+              Application.Terminate;
+            end
+            else
+            begin
+             ValorNome.SetFocus;
+            end;
+          end
+          else
+          begin
+            frmMenu.bSenha := True;
+            frmMenu.recInformacoes.nm_Usuario := CDSDINAMICA.FieldByname('LOGIN').AsString;
+            frmMenu.recInformacoes.Id_Usuario := CDSDINAMICA.FieldByname('ID_USUARIO').AsInteger;
+            frmMenu.recInformacoes.Nivel      := CDSDINAMICA.FieldByname('NIVEL').AsInteger;
+            Close;
+          end;
+        end
+        else
+        begin
+          Application.MessageBox('Usuário não cadastrado/autorizado.', 'Atenção', MB_ICONWarning);
+          NrTentativas := NrTentativas +1;
+          if NrTentativas = 3 then
+          begin
+            ShowMessage('Número de tentativas ultrapassadas');
+            Application.Terminate;
+          end
+          else
+          begin
+           ValorNome.SetFocus;
+          end;
+        end;
+      end;
+    end
+    else
+    begin
+      Application.MessageBox('É necessário informar um usuário.', 'Atenção', MB_ICONWarning);
+        NrTentativas := NrTentativas +1;
+        if NrTentativas = 3 then
+        begin
+          ShowMessage('Número de tentativas ultrapassadas');
+          Close;
+          Exit;
+        end
+        else
+        begin
+         ValorNome.SetFocus;
+        end;
+    end;
+end;
+
+procedure TfrmSenha.BtnCancelarClick(Sender: TObject);
+begin
+  Fecha := True;
+  Application.Terminate;
+end;
+
+procedure TfrmSenha.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+  if NrTentativas = 3 then
+  begin
+    Close;
+    frmMenu.Close;
+    exit;
+  end
+  else
+  begin
+    if (ValorNome.Text <> '') and (frmMenu.bSenha = False) then
+    begin
+      Action := caNone;
+      btnOKClick(Self);
+    end
+    else if (ValorNome.Text = '') then
+    begin
+      if (Application.MessageBox('Voce não informou um usuário, deseja encerrar a pliacação.',
+        'Confirmação', MB_ICONQuestion+MB_YESNO) = IDYES) then
+      begin
+        Action := caFree;
+        frmMenu.Close;
+        //Application.MessageBox('É necessário informar um usuário.', 'Atenção', MB_ICONWarning);
+      end
+      else
+      begin
+        Action := caNone;
+        ValorNome.SetFocus;
+      end;
+    end
+    else
+    begin
+      Action := caFree;
+    end;
+  end;
+end;
+
+procedure TfrmSenha.FormKeyPress(Sender: TObject; var Key: Char);
+begin
+  if Key = #13 then
+  begin
+    selectnext(activecontrol, true, true);
+    Key := #0;
+  end;
+end;
+
+procedure TfrmSenha.FormShow(Sender: TObject);
+begin
+  ValorNome.SetFocus;
+end;
+
+end.

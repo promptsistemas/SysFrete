@@ -97,6 +97,21 @@ begin
         Close;
       end;
 
+      if ClienteVendedor = 'veiculo' then
+      begin
+
+        DM.cdsVeiculoPROPIETARIO.AsString := ACBrConsultaCPF1.Nome;
+        DM.cdsMotoristaDT_CADASTRO.AsString := ACBrConsultaCPF1.DataNascimento;
+       { EditRazaoSocial.Text      := ACBrConsultaCPF1.Nome;
+        EditSituacao.Text         := ACBrConsultaCPF1.Situacao;
+        EdtEmissao.Text           := ACBrConsultaCPF1.Emissao;
+        EdtCodCtrlControle.Text   := ACBrConsultaCPF1.CodCtrlControle;
+        EdtDigitoVerificador.Text := ACBrConsultaCPF1.DigitoVerificador;
+        EdtIncricao.Text          := ACBrConsultaCPF1.DataInscricao;}
+        frmCadMotorista.DBEdit3.SetFocus;
+        Close;
+      end;
+
 
     end;
   end

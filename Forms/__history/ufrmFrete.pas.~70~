@@ -1,0 +1,854 @@
+unit ufrmFrete;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.Buttons, Vcl.StdCtrls, Vcl.DBCtrls,
+  Vcl.ExtCtrls, Data.DB, Vcl.Grids, Vcl.DBGrids, Vcl.Mask, Vcl.ComCtrls;
+
+type
+  TfrmFrete = class(TForm)
+    Panel1: TPanel;
+    DBText1: TDBText;
+    Label17: TLabel;
+    Label18: TLabel;
+    SpeedButton3: TSpeedButton;
+    P_BOTOES: TPanel;
+    BB_NOVO: TBitBtn;
+    BB_EDITAR: TBitBtn;
+    BB_GRAVAR: TBitBtn;
+    BB_CANCELAR: TBitBtn;
+    BB_EXCLUIR: TBitBtn;
+    BB_PESQUISAR: TBitBtn;
+    BB_SAIR: TBitBtn;
+    BB_CONCLUIR: TBitBtn;
+    DBNavigator1: TDBNavigator;
+    PageControl1: TPageControl;
+    TabSheet1: TTabSheet;
+    P_PRODUCAO: TPanel;
+    Label1: TLabel;
+    Label2: TLabel;
+    Label4: TLabel;
+    Label7: TLabel;
+    Label10: TLabel;
+    Label11: TLabel;
+    Label9: TLabel;
+    Label3: TLabel;
+    Label5: TLabel;
+    Label22: TLabel;
+    Label6: TLabel;
+    DBEdit1: TDBEdit;
+    DBEdit2: TDBEdit;
+    DBEdit4: TDBEdit;
+    DBEdit7: TDBEdit;
+    DBEdit10: TDBEdit;
+    DBEdit11: TDBEdit;
+    DBEdit3: TDBEdit;
+    DBEdit5: TDBEdit;
+    DBEdit16: TDBEdit;
+    DBEdit20: TDBEdit;
+    DBEdit8: TDBEdit;
+    TabSheet2: TTabSheet;
+    DBGrid1: TDBGrid;
+    SpeedButton2: TSpeedButton;
+    DBEdit6: TDBEdit;
+    Label8: TLabel;
+    DBEdit9: TDBEdit;
+    Label12: TLabel;
+    DBEdit12: TDBEdit;
+    Label13: TLabel;
+    DBEdit13: TDBEdit;
+    Label14: TLabel;
+    DBEdit14: TDBEdit;
+    Label15: TLabel;
+    DBEdit15: TDBEdit;
+    DBEdit17: TDBEdit;
+    Label16: TLabel;
+    Label19: TLabel;
+    DBEdit18: TDBEdit;
+    DBEdit21: TDBEdit;
+    Label20: TLabel;
+    Label23: TLabel;
+    DBEdit22: TDBEdit;
+    Telefone: TLabel;
+    SpeedButton1: TSpeedButton;
+    DBEdit23: TDBEdit;
+    Label24: TLabel;
+    DBEdit25: TDBEdit;
+    Label26: TLabel;
+    DBEdit26: TDBEdit;
+    Label27: TLabel;
+    DBComboBox2: TDBComboBox;
+    Label28: TLabel;
+    DBEdit27: TDBEdit;
+    Label29: TLabel;
+    DBEdit28: TDBEdit;
+    Label30: TLabel;
+    DBComboBox1: TDBComboBox;
+    Label31: TLabel;
+    DBEdit29: TDBEdit;
+    Label32: TLabel;
+    DBEdit30: TDBEdit;
+    Label33: TLabel;
+    DBEdit31: TDBEdit;
+    Label34: TLabel;
+    DBMemo1: TDBMemo;
+    Label35: TLabel;
+    Bevel1: TBevel;
+    BB_INCLUIR: TBitBtn;
+    BB_ALTERAR: TBitBtn;
+    BB_SALVAR: TBitBtn;
+    BB_CANC: TBitBtn;
+    BB_EXC: TBitBtn;
+    p_item: TPanel;
+    Label36: TLabel;
+    Label37: TLabel;
+    Faturado: TLabel;
+    SpeedButton6: TSpeedButton;
+    Label38: TLabel;
+    Label39: TLabel;
+    DBEdit32: TDBEdit;
+    DBEdit33: TDBEdit;
+    DBEdit34: TDBEdit;
+    DBEdit35: TDBEdit;
+    DBEdit36: TDBEdit;
+    PageControl2: TPageControl;
+    TabSheet3: TTabSheet;
+    DBGrid2: TDBGrid;
+    Label40: TLabel;
+    DBEdit38: TDBEdit;
+    Label41: TLabel;
+    DBEdit19: TDBEdit;
+    Label21: TLabel;
+    DBEdit24: TDBEdit;
+    Label25: TLabel;
+    DBEdit37: TDBEdit;
+    Label42: TLabel;
+    DBEdit39: TDBEdit;
+    Label43: TLabel;
+    DBEdit40: TDBEdit;
+    Label44: TLabel;
+    SpeedButton7: TSpeedButton;
+    DBText2: TDBText;
+    Label45: TLabel;
+    BB_IMPRIMIR: TBitBtn;
+    procedure SpeedButton3Click(Sender: TObject);
+    procedure SpeedButton2Click(Sender: TObject);
+    procedure FormKeyPress(Sender: TObject; var Key: Char);
+    procedure SpeedButton1Click(Sender: TObject);
+    procedure DBComboBox2Exit(Sender: TObject);
+    procedure DBComboBox1Exit(Sender: TObject);
+    procedure DBMemo1Exit(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure FormShow(Sender: TObject);
+    procedure BB_NOVOClick(Sender: TObject);
+    procedure BB_EDITARClick(Sender: TObject);
+    procedure BB_GRAVARClick(Sender: TObject);
+    procedure BB_CANCELARClick(Sender: TObject);
+    procedure BB_EXCLUIRClick(Sender: TObject);
+    procedure BB_CONCLUIRClick(Sender: TObject);
+    procedure BB_SAIRClick(Sender: TObject);
+    procedure BB_PESQUISARClick(Sender: TObject);
+    procedure BB_INCLUIRClick(Sender: TObject);
+    procedure DBEdit3KeyPress(Sender: TObject; var Key: Char);
+    procedure DBEdit20KeyPress(Sender: TObject; var Key: Char);
+    procedure DBEdit19KeyPress(Sender: TObject; var Key: Char);
+    procedure SpeedButton7Click(Sender: TObject);
+    procedure DBEdit32Exit(Sender: TObject);
+    procedure DBEdit32KeyPress(Sender: TObject; var Key: Char);
+    procedure SpeedButton6Click(Sender: TObject);
+    procedure DBEdit35Exit(Sender: TObject);
+    procedure BB_ALTERARClick(Sender: TObject);
+    procedure BB_SALVARClick(Sender: TObject);
+    procedure BB_CANCClick(Sender: TObject);
+    procedure BB_EXCClick(Sender: TObject);
+    procedure DBEdit36Exit(Sender: TObject);
+  private
+    { Private declarations }
+    Procedure GerenciaBotoes;
+    Procedure GerenciaBotoes2;
+    Procedure SomaTotal;
+  public
+    { Public declarations }
+  end;
+
+var
+  frmFrete: TfrmFrete;
+  Tipo, Tp_Operacao : String;
+
+
+implementation
+
+{$R *.dfm}
+
+uses U_LIB, UD_PESQUISA, uDM, uPesquisaPadrao;
+
+procedure TfrmFrete.BB_ALTERARClick(Sender: TObject);
+begin
+  if DM.cdsFreteSTATUS.AsString = 'F' then
+  begin
+    ShowMessage('Frete Já Finalizado.');
+    Exit;
+  end;
+
+  tp_operacao := 'Edit';
+  DM.cdsItemFrete.Open;
+  DM.cdsItemFrete.Edit;
+  GerenciaBotoes2;
+  SomaTotal;
+  DBEdit32.SetFocus;
+
+
+end;
+
+procedure TfrmFrete.BB_CANCClick(Sender: TObject);
+begin
+  DM.cdsItemFrete.Cancel;
+  GerenciaBotoes2;
+end;
+
+procedure TfrmFrete.BB_CANCELARClick(Sender: TObject);
+begin
+  DM.cdsFrete.Cancel;
+  GerenciaBotoes;
+end;
+
+procedure TfrmFrete.BB_CONCLUIRClick(Sender: TObject);
+begin
+   if DM.cdsFreteSTATUS.AsString = 'F' then
+  begin
+    ShowMessage('Frete Já Finalizada.');
+    Exit;
+  end
+  else
+  begin
+    DM.cdsFrete.Open;
+    DM.cdsFrete.Edit;
+    DM.cdsFreteSTATUS.Value := 'F';
+    DM.cdsFrete.ApplyUpdates(0);
+    DM.cdsFrete.Refresh;
+    ShowMessage('Registro Finalizado Com Sucesso');
+  end;
+
+
+end;
+
+procedure TfrmFrete.BB_EDITARClick(Sender: TObject);
+begin
+  if DM.cdsFreteSTATUS.AsString = 'F' then
+  begin
+    ShowMessage('Frete Já Finalizada.');
+    Exit;
+  end;
+
+  PageControl1.ActivePage := TabSheet1;
+  Tipo := 'Edit';
+
+  DM.cdsFrete.Edit;
+  GerenciaBotoes;
+  DBEdit4.SetFocus;
+
+end;
+
+procedure TfrmFrete.BB_EXCClick(Sender: TObject);
+begin
+  if DM.cdsFreteSTATUS.AsString = 'F' then
+  begin
+    ShowMessage('Frete Já Finalizado.');
+    Exit;
+  end;
+  if Application.MessageBox('Deseja Realmente Excluir. S/N ?','Confirmação',MB_ICONQUESTION+MB_YESNO ) = IDYES Then
+  begin
+    DM.cdsItemFrete.Delete;
+    DM.cdsItemFrete.ApplyUpdates(0);
+    ShowMessage('Registro Excluído!');
+    GerenciaBotoes2;
+  end
+  else
+  begin
+    ShowMessage('Exclusão Cancelada');
+    GerenciaBotoes2;
+  end;
+end;
+
+procedure TfrmFrete.BB_EXCLUIRClick(Sender: TObject);
+begin
+  if DM.cdsFreteSTATUS.AsString = 'F' then
+  begin
+    ShowMessage('Nota Já Finalizada.');
+    Exit;
+  end;
+
+  if DM.cdsItemFrete.RecordCount > 0  then
+  begin
+    ShowMessage('Impossivél Excluir Este Frete. Existe(m) Registro(s) Vinculado(s). Exclua o(s) Registro(s) Antes de Excluir o Frete. ');
+    Exit;
+  end;
+
+  if Application.MessageBox('Deseja Excluir Este Registro ?','Confirmação',MB_ICONQUESTION+MB_YESNO ) = idyes then
+  begin
+    DM.cdsFrete.Delete;
+    DM.cdsFrete.ApplyUpdates(0);
+    GerenciaBotoes;
+  end
+  else
+  begin
+    ShowMessage('Registro Não Excluído');
+  end;
+    GerenciaBotoes;
+end;
+
+procedure TfrmFrete.BB_GRAVARClick(Sender: TObject);
+begin
+  if Tipo = 'Insert' then
+  begin
+   { if DBEdit19.Text = '' then
+    begin
+      ShowMessage('Favor Informar Tinturaria.');
+      DBEdit19.SetFocus;
+      Exit;
+    end;
+    if DBEdit16.Text = '' then
+    begin
+      ShowMessage('Favor Informar Nº NF Remessa.');
+      DBEdit16.SetFocus;
+      Exit;
+    end;
+    if DBEdit3.Text = '' then
+    begin
+      ShowMessage('Favor Informar Malharia.');
+      DBEdit3.SetFocus;
+      Exit;
+    end;
+
+    if DBEdit20.Text = '' then
+    begin
+      ShowMessage('Favor Informar Cliente.');
+      DBEdit20.SetFocus;
+      Exit;
+    end;}
+
+
+    DM.cdsDinamica.Close;
+    DM.cdsDinamica.IndexFieldNames:='';
+    DM.cdsDinamica.CommandText :=' SELECT MAX(ID_FRETE) FROM TB_FRETE';
+    DM.cdsDinamica.Open;
+
+    DM.cdsFreteID_FRETE.AsInteger := DM.cdsDinamica.Fields[0].AsInteger + 1;
+
+    if DM.cdsFrete.ApplyUpdates(0) <> 0 then
+    begin
+      ShowMessage('O Sistema não conseguiu gravar este Registro. Tente novamente ou contate o Suporte.');
+      BB_GRAVAR.SetFocus;
+    end
+    else
+    begin
+      DM.cdsFrete.DisableControls;
+      DM.cdsFrete.ApplyUpdates(0);
+//      DM.Frete.Refresh;
+      DM.cdsFrete.EnableControls;
+      GerenCiaBotoes;
+      GerenciaBotoes2;
+
+      BB_INCLUIRClick(Self);
+    end;
+  end;
+
+  if Tipo = 'Edit' then
+  begin
+    if DM.cdsFrete.ApplyUpdates(0) <> 0 then
+    begin
+      ShowMessage('O Sistema não conseguiu gravar este Registro. Tente novamente ou contate o Suporte.');
+      BB_GRAVAR.SetFocus;
+    end
+    else
+    begin
+      DM.cdsFrete.ApplyUpdates(0);
+//      DM.cdsItemFrete.Refresh;
+      GerenCiaBotoes;
+      GerenciaBotoes2;
+      BB_INCLUIRClick(Self);
+    end;
+  end;
+
+end;
+
+procedure TfrmFrete.BB_INCLUIRClick(Sender: TObject);
+begin
+  if DM.cdsFreteSTATUS.AsString = 'F' then
+  begin
+    ShowMessage('Frete Já Finalizado.');
+    Exit;
+  end;
+
+  Tp_Operacao := 'Insert';
+
+  if DM.cdsFrete.RecordCount = 0 then
+  begin
+    ShowMessage('Não Existe Fretes Cadastrados para este Lançamento.');
+    exit;
+    BB_CANCClick(Self);
+  end;
+
+  DM.cdsItemFrete.Append;
+  DM.cdsItemFrete.Open;
+  GerenciaBotoes2;
+  DBEdit32.SetFocus;
+end;
+
+procedure TfrmFrete.BB_NOVOClick(Sender: TObject);
+begin
+  PageControl1.ActivePage := TabSheet1;
+  Tipo := 'Insert';
+
+  DM.cdsFrete.Insert;
+  DM.cdsFreteSTATUS.Value := 'A';
+  DM.cdsFreteVL_FRETE.AsFloat := 0;
+  DM.cdsFreteVL_CUSTO_FRETE.AsFloat := 0;
+  DM.cdsFretePESO_BRUTO.AsFloat := 0;
+  DM.cdsFretePESO_LIQ.AsFloat := 0;
+  DM.cdsFreteDT_PARTIDA.AsDateTime := Now;
+  GerenciaBotoes;
+  DBEdit4.SetFocus;
+
+end;
+
+procedure TfrmFrete.BB_PESQUISARClick(Sender: TObject);
+begin
+  frmPesquisaPadrao := TfrmPesquisaPadrao.Create(self);
+  frmPesquisaPadrao.TB_PESQUISA := 'Frete';
+  frmPesquisaPadrao.CDS := DM.cdsFrete;
+  frmPesquisaPadrao.Tabela := 'TB_FRETE F ';
+  frmPesquisaPadrao.CampoBusca  := 'F.NR_NOTA';
+  frmPesquisaPadrao.CampoBusca2 := 'C.NOME ';
+  frmPesquisaPadrao.CampoBusca3 := 'ML.DESCRICAO';
+  frmPesquisaPadrao.CampoBusca4 := 'V.PLACA_CARRETA';
+  frmPesquisaPadrao.CampoChave  := 'V.PLACA_CARRETA';
+  frmPesquisaPadrao.LegendaGrouBox := 'Consulta Fretes Lançados';
+  frmPesquisaPadrao.Sql            := ' SELECT F.ID_FRETE,F.ID_VEICULO, F.COD_MUNIC_ORIGEM, F.COD_MUNIC_DESTINO, F.ID_MARCA, F.ID_MODELO, F.ID_MOTORISTA, F.ID_CLIENTE, '+
+                                      ' F.DT_PARTIDA, F.DT_RETORNO, F.KM_INICIO, F.KM_FIM, F.NR_NOTA, F.VL_FRETE, F.PESO_BRUTO, F.PESO_LIQ, F.VL_CUSTO_FRETE,'+
+                                      ' F.STATUS, F.OBS, MO.UF AS UF_ORIGEM, MO.NOME AS CIDADE_ORIGEM, MD.UF AS UF_DESTINO, MD.NOME AS CIDADE_DESTINO,'+
+                                      ' MC.UF AS UF_CLIENTE, MC.NOME AS CIDADE_CLIENTE, C.NOME AS CLIENTE, C.CNPJ_CPF, C.INSC_RG, C.ENDERECO, C.NUMERO, C.COMPLEMENTO,'+
+                                      ' C.BAIRRO, C.TELEFONE, C.CEP, C.TEL_COMERCIAL, MA.NOME AS MARCA, ML.DESCRICAO AS MODELO, MT.NOME AS MOTORISTA, MT.TELEFONE AS TEL_MOT,'+
+                                      ' V.UF_PLACA, V.PLACA_CARRETA, V.CHASSI, V.ANO_MODELO, V.ANO_FABRICACAO, V.COR ';
+
+  frmPesquisaPadrao.dbgPesquisa.Columns[0].Title.Caption := 'Cliente';
+  frmPesquisaPadrao.dbgPesquisa.Columns[0].FieldName:= 'CLIENTE';
+  frmPesquisaPadrao.dbgPesquisa.Columns[0].Width:= 220;
+
+  frmPesquisaPadrao.dbgPesquisa.Columns[1].Title.Caption := 'Veículo';
+  frmPesquisaPadrao.dbgPesquisa.Columns[1].FieldName:= 'MODELO';
+  frmPesquisaPadrao.dbgPesquisa.Columns[1].Width:= 200;
+
+  frmPesquisaPadrao.dbgPesquisa.Columns[2].Title.Caption := 'Nº Nota Fiscal';
+  frmPesquisaPadrao.dbgPesquisa.Columns[2].FieldName:= 'NR_NOTA';
+  frmPesquisaPadrao.dbgPesquisa.Columns[2].Width:= 100;
+
+  frmPesquisaPadrao.dbgPesquisa.Columns[3].Title.Caption := 'Placa';
+  frmPesquisaPadrao.dbgPesquisa.Columns[3].FieldName:= 'PLACA_CARRETA';
+  frmPesquisaPadrao.dbgPesquisa.Columns[3].Width:= 100;
+
+  frmPesquisaPadrao.ShowModal;
+  FreeAndNil(frmPesquisaPadrao);
+
+end;
+
+procedure TfrmFrete.BB_SAIRClick(Sender: TObject);
+begin
+  Close;
+end;
+
+procedure TfrmFrete.BB_SALVARClick(Sender: TObject);
+begin
+  DM.cdsItemFrete.Cancel;
+  GerenciaBotoes2;
+end;
+
+procedure TfrmFrete.DBComboBox1Exit(Sender: TObject);
+begin
+  if DBComboBox1.Text = '' then
+  begin
+    ShowMessage('Informe o Estado');
+    DBComboBox1.SetFocus;
+  end
+  else
+  begin
+    DM.cdsDinamica.Close;
+    DM.cdsDinamica.IndexFieldNames:='';
+    DM.cdsDinamica.CommandText := 'SELECT M.CODIGO_MUNIC,M.nome,M.UF FROM TB_MUNICIPIOS M WHERE M.UF ='+QuotedStr(DM.cdsFreteUF_DESTINO.AsString);
+    DM.cdsDinamica.Open;
+    Pesquisa(DM.cdsDinamica,['NOME','UF'],['Municipios','Estado'],[50,2],'','','','','Municipios','Municipios');
+    DM.cdsFreteCOD_MUNIC_DESTINO.AsString := DM.cdsDinamica.Fields[0].AsString;
+    DM.cdsFreteCIDADE_DESTINO.AsString := DM.cdsDinamica.Fields[1].AsString;
+    dbedit8.SetFocus;
+  end;
+
+end;
+
+procedure TfrmFrete.GerenciaBotoes;
+begin
+  BB_NOVO.Enabled := not (DM.cdsFrete.State in dsEditModes);
+  BB_GRAVAR.Enabled := NOT BB_NOVO.Enabled;
+  BB_EXCLUIR.Enabled := BB_NOVO.Enabled and not (DM.cdsFrete.IsEmpty);
+  BB_CANCELAR.Enabled := BB_GRAVAR.Enabled;
+  BB_EDITAR.Enabled := BB_EXCLUIR.Enabled;
+  BB_CONCLUIR.Enabled := BB_EXCLUIR.Enabled;
+  BB_IMPRIMIR.Enabled   := BB_NOVO.Enabled and not (DM.cdsFrete.IsEmpty);
+  BB_SAIR.Enabled := BB_NOVO.Enabled;
+  BB_PESQUISAR.Enabled:= BB_NOVO.Enabled;
+  P_PRODUCAO.Enabled := not BB_NOVO.Enabled;
+end;
+
+procedure TfrmFrete.GerenciaBotoes2;
+begin
+  BB_INCLUIR.Enabled       := not (DM.cdsItemFrete.State in dsEditModes);
+  BB_SALVAR.Enabled        := NOT BB_INCLUIR.Enabled;
+  BB_EXC.Enabled           := BB_INCLUIR.Enabled and not (DM.cdsItemFrete.IsEmpty);
+  BB_CANC.Enabled          := BB_SALVAR.Enabled;
+  BB_ALTERAR.Enabled       := BB_EXC.Enabled;
+  p_item.Enabled        := not BB_INCLUIR.Enabled;
+end;
+
+procedure TfrmFrete.SomaTotal;
+begin
+  DM.cdsDinamica.Close;
+  DM.cdsDinamica.IndexFieldNames:='';
+  DM.cdsDinamica.CommandText := ' SELECT SUM(I.QUANT * I.VL_UNIT) FROM TB_ITEM_FRETE I '+
+                                ' WHERE I.ID_FRETE = '+DM.cdsFreteID_FRETE.AsString;
+  DM.cdsDinamica.Open;
+
+  DM.cdsFrete.Edit;
+  DM.cdsFreteVL_CUSTO_FRETE.AsFloat := DM.cdsDinamica.Fields[0].AsFloat;
+  DM.cdsFrete.ApplyUpdates(0);
+end;
+
+procedure TfrmFrete.DBComboBox2Exit(Sender: TObject);
+begin
+  if DBComboBox2.Text = '' then
+  begin
+    ShowMessage('Informe o Estado');
+    DBComboBox2.SetFocus;
+  end
+  else
+  begin
+    DM.cdsDinamica.Close;
+    DM.cdsDinamica.IndexFieldNames:='';
+    DM.cdsDinamica.CommandText := 'SELECT M.CODIGO_MUNIC,M.nome,M.UF FROM TB_MUNICIPIOS M WHERE M.UF ='+QuotedStr(DM.cdsFreteUF_ORIGEM.AsString);
+    DM.cdsDinamica.Open;
+    Pesquisa(DM.cdsDinamica,['NOME','UF'],['Municipios','Estado'],[50,2],'','','','','Municipios','Municipios');
+    DM.cdsFreteCOD_MUNIC_ORIGEM.AsString := DM.cdsDinamica.Fields[0].AsString;
+    DM.cdsFreteCIDADE_ORIGEM.AsString := DM.cdsDinamica.Fields[1].AsString;
+    DBComboBox1.SetFocus;
+  end;
+end;
+
+procedure TfrmFrete.DBEdit19KeyPress(Sender: TObject; var Key: Char);
+begin
+  if Key = #13 then
+  begin
+    Key := #0;
+    Perform(WM_NEXTDLGCTL, 0, 0);
+  end
+  else if Key = #32 then
+  begin
+    Key := #0;
+    SpeedButton7Click(self);
+  end;
+
+end;
+
+procedure TfrmFrete.DBEdit20KeyPress(Sender: TObject; var Key: Char);
+begin
+  if Key = #13 then
+  begin
+    Key := #0;
+    Perform(WM_NEXTDLGCTL, 0, 0);
+  end
+  else if Key = #32 then
+  begin
+    Key := #0;
+    SpeedButton1Click(self);
+  end;
+
+end;
+
+procedure TfrmFrete.DBEdit32Exit(Sender: TObject);
+begin
+  if DBEdit32.Text = '' Then
+  begin
+    BB_CANC.SetFocus;
+    exit;
+  end;
+  DM.cdsServico.Open;
+  DM.cdsItemFrete.Open;
+
+  if DM.cdsServico.Locate('ID_SERVICO',DBEdit32.Text,[]) then
+  begin
+    DM.cdsItemFreteID_SERVICO.AsInteger  := DM.cdsServicoID_SERVICO.AsInteger;
+    DM.cdsItemFreteVL_UNIT.AsFloat       := DM.cdsServicoVL_UNIT.AsFloat;
+    DM.cdsItemFreteSERVICO.AsString      := DM.cdsServicoDESCRICAO.AsString;
+    DBEdit34.SetFocus;
+  end
+  else
+  begin
+    ShowMessage('          A T E N Ç Ã O  !!!!!!!!!   '+#13+
+                '                                     '+#13+
+                '   Código Não Encontrado             '+#13+
+                '                                     ');
+    SpeedButton6Click(Self);
+  end;
+
+end;
+
+procedure TfrmFrete.DBEdit32KeyPress(Sender: TObject; var Key: Char);
+begin
+  if Key = #13 then
+  begin
+    Key := #0;
+    Perform(WM_NEXTDLGCTL, 0, 0);
+  end
+  else if Key = #32 then
+  begin
+    Key := #0;
+    SpeedButton6Click(self);
+  end;
+
+end;
+
+procedure TfrmFrete.DBEdit35Exit(Sender: TObject);
+begin
+  if NOT (DM.cdsItemFreteQUANT.IsNull) then
+  begin
+    DM.cdsItemFreteTOTAL.AsFloat := (DM.cdsItemFreteVL_UNIT.AsFloat * DM.cdsItemFreteQUANT.AsFloat);
+  end;
+end;
+
+procedure TfrmFrete.DBEdit36Exit(Sender: TObject);
+begin
+  if tp_operacao = 'Insert' then
+  begin
+    if Application.MessageBox('Deseja Salvar este Registro?','Confirmação',MB_ICONQUESTION+MB_YESNO)=IDYES then
+    begin
+      DM.cdsDinamica.Close;
+      DM.cdsDinamica.IndexFieldNames:='';
+      DM.cdsDinamica.CommandText :=' SELECT MAX(ID_ITEM_FRETE) FROM TB_ITEM_FRETE ';
+      DM.cdsDinamica.Open;
+      DM.cdsItemFreteID_ITEM_FRETE.AsInteger := DM.cdsDinamica.Fields[0].AsInteger + 1;
+
+      if DM.cdsItemFrete.ApplyUpdates(0) <> 0 then
+      begin
+         ShowMessage('Erro ao Gravar Registro. Consulte o Suporte! ');
+      end
+      else
+      begin
+        DM.cdsItemFrete.ApplyUpdates(0);
+        SomaTotal;
+        BB_INCLUIRClick(Self);
+      end;
+    end
+    else
+    begin
+      ShowMessage('Registro não salvo');
+      BB_CANCClick(Self);
+    end;
+  end;
+  if tp_operacao = 'Edit' then
+  begin
+    if Application.MessageBox('Confirma Alteração deste Registro?','Confirmação',MB_ICONQUESTION+MB_YESNO)=IDYES then
+    begin
+      DM.cdsItemFrete.ApplyUpdates(0);
+      SomaTotal;
+      BB_CANCClick(Self);
+    end
+    else
+    begin
+      ShowMessage('Registro não salvo');
+      BB_CANCClick(Self);
+    end;
+  end;
+
+end;
+
+procedure TfrmFrete.DBEdit3KeyPress(Sender: TObject; var Key: Char);
+begin
+  if Key = #13 then
+  begin
+    Key := #0;
+    Perform(WM_NEXTDLGCTL, 0, 0);
+  end
+  else if Key = #32 then
+  begin
+    Key := #0;
+    SpeedButton2Click(self);
+  end;
+end;
+
+procedure TfrmFrete.DBMemo1Exit(Sender: TObject);
+begin
+  BB_GRAVAR.SetFocus;
+end;
+
+procedure TfrmFrete.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+  if DM.cdsFrete.State in [dsEdit,dsInsert] then
+  begin
+    ShowMessage('Favor Salve ou Cancele o Registro Para Sair');
+    Abort;
+  end
+  else
+  begin
+    DM.cdsFrete.Close;
+    DM.cdsItemFrete.Close;
+    DM.cdsDinamica.Close;
+    DM.cdsDinamica.IndexFieldNames:='';
+    Action := caFree;
+    frmFrete := NIL;
+  end;
+  if DM.cdsItemFrete.State in [dsEdit,dsInsert] then
+  begin
+    ShowMessage('Favor Salve ou Cancele o Registro Para Sair');
+    Abort;
+  end
+  else
+  begin
+    DM.cdsFrete.Close;
+    DM.cdsItemFrete.Close;
+    DM.cdsDinamica.Close;
+    DM.cdsDinamica.IndexFieldNames:='';
+  end;
+
+
+
+  Action := caFree;
+  frmFrete := nil;
+
+end;
+
+procedure TfrmFrete.FormKeyPress(Sender: TObject; var Key: Char);
+begin
+  if Key = #13 then
+  begin
+    Key := #0;
+    Perform(WM_NEXTDLGCTL, 0, 0);
+  end;
+end;
+
+procedure TfrmFrete.FormShow(Sender: TObject);
+begin
+  DM.cdsFrete.Close;
+  DM.cdsFrete.Open;
+
+
+  if DM.cdsFrete.RecordCount >0 then
+  begin
+    DM.cdsItemFrete.Close;
+    DM.cdsItemFrete.Params[0].AsInteger := DM.cdsFreteID_FRETE.AsInteger;
+    DM.cdsItemFrete.Open;
+  end;
+
+  GerenciaBotoes;
+  GerenciaBotoes2;
+
+end;
+
+procedure TfrmFrete.SpeedButton1Click(Sender: TObject);
+begin
+  DM.cdsMotorista.Close;
+  DM.cdsMotorista.Open;
+  Pesquisa(DM.cdsMotorista,['NOME','ID_MOTORISTA'],['Nome do Motorista','Código'],[40,4],'','','','','Motorista','Motorista');
+  DM.cdsFreteID_MOTORISTA.AsInteger := DM.cdsMotoristaID_MOTORISTA.AsInteger;
+  DM.cdsFreteMOTORISTA.AsString     := DM.cdsMotoristaNOME.AsString;
+  DBEdit2.SetFocus;
+end;
+
+procedure TfrmFrete.SpeedButton2Click(Sender: TObject);
+begin
+  DM.cdsCliente.Close;
+  DM.cdsCliente.Open;
+  Pesquisa(DM.cdsCliente,['NOME','ID_CLIENTE'],['Nome do Cliente','Código'],[40,4],'','','','','Cliente','Cliente');
+  DM.cdsFreteID_CLIENTE.AsInteger := DM.cdsClienteID_CLIENTE.AsInteger;
+  DM.cdsFreteCLIENTE.AsString     := DM.cdsClienteNOME.AsString;
+  DM.cdsFreteCNPJ_CPF.AsString    := DM.cdsClienteCNPJ_CPF.AsString;
+  DM.cdsFreteINSC_RG.AsString     := DM.cdsClienteINSC_RG.AsString;
+  DM.cdsFreteENDERECO.AsString    := DM.cdsClienteENDERECO.AsString;
+  DM.cdsFreteNUMERO.AsString      := DM.cdsClienteNUMERO.AsString;
+  DM.cdsFreteCOMPLEMENTO.AsString := DM.cdsClienteCOMPLEMENTO.AsString;
+  DM.cdsFreteBAIRRO.AsString      := DM.cdsClienteBAIRRO.AsString;
+  DM.cdsFreteUF_CLIENTE.AsString  := DM.cdsClienteUF.AsString;
+  DM.cdsFreteCIDADE_CLIENTE.AsString := DM.cdsClienteCIDADE.AsString;
+  DM.cdsFreteTEL_COMERCIAL.AsString  := DM.cdsClienteTELEFONE.AsString;
+  DM.cdsFreteCEP.AsString         := DM.cdsClienteCEP.AsString;
+  DBEdit20.SetFocus;
+end;
+
+procedure TfrmFrete.SpeedButton3Click(Sender: TObject);
+begin
+  Close;
+end;
+
+procedure TfrmFrete.SpeedButton6Click(Sender: TObject);
+begin
+  frmPesquisaPadrao := TfrmPesquisaPadrao.Create(self);
+  frmPesquisaPadrao.TB_PESQUISA := 'FreteServico';
+  frmPesquisaPadrao.CDS := DM.cdsServico;
+  frmPesquisaPadrao.Tabela := 'TB_SERVICOS S';
+  frmPesquisaPadrao.CampoBusca := 'S.ID_SERVICO';
+  frmPesquisaPadrao.CampoBusca2 := 'S.DESCRICAO';
+  frmPesquisaPadrao.CampoBusca3 := 'S.VL_UNIT';
+  frmPesquisaPadrao.LegendaGrouBox := 'Consulta de Serviços';
+  frmPesquisaPadrao.Sql            := ' SELECT S.ID_SERVICO,  S.DESCRICAO, S.VL_UNIT ';
+
+  frmPesquisaPadrao.dbgPesquisa.Columns[0].Title.Caption := 'Serviço';
+  frmPesquisaPadrao.dbgPesquisa.Columns[0].FieldName:= 'DESCRICAO';
+  frmPesquisaPadrao.dbgPesquisa.Columns[0].Width:= 180;
+
+  frmPesquisaPadrao.dbgPesquisa.Columns[1].Title.Caption := 'Vl Unit';
+  frmPesquisaPadrao.dbgPesquisa.Columns[1].FieldName:= 'VL_UNIT';
+  frmPesquisaPadrao.dbgPesquisa.Columns[1].Width:= 180;
+
+  frmPesquisaPadrao.dbgPesquisa.Columns[2].Title.Caption := 'ID_SERVICO';
+  frmPesquisaPadrao.dbgPesquisa.Columns[2].FieldName:= 'Código';
+  frmPesquisaPadrao.dbgPesquisa.Columns[2].Width:= 80;
+
+
+  frmPesquisaPadrao.ShowModal;
+  FreeAndNil(frmPesquisaPadrao);
+
+  DM.cdsItemFreteID_SERVICO.AsInteger        := DM.cdsServicoID_SERVICO.AsInteger;
+  DM.cdsItemFreteSERVICO.AsString            := DM.cdsServicoDESCRICAO.AsString;
+  DBEdit34.SetFocus;
+
+end;
+
+procedure TfrmFrete.SpeedButton7Click(Sender: TObject);
+begin
+  DM.cdsVeiculo.Close;
+  DM.cdsVeiculo.Open;
+  Pesquisa(DM.cdsVeiculo,['MODELO','PLACA_CARRETA','ID_VEICULO'],['Modelo','Placa','Código'],[40,20,20],'','','','','Veículo','Veículo');
+  DM.cdsFreteID_VEICULO.AsInteger := DM.cdsVeiculoID_VEICULO.AsInteger;
+  DM.cdsFreteID_MARCA.AsInteger   := DM.cdsVeiculoID_MARCA.AsInteger;
+  DM.cdsFreteID_MODELO.AsInteger  := DM.cdsVeiculoID_MODELO.AsInteger;
+  DM.cdsFretePLACA_CARRETA.AsString  := DM.cdsVeiculoPLACA_CARRETA.AsString;
+  DM.cdsFreteUF_PLACA.AsString    := DM.cdsVeiculoUF_PLACA.AsString;
+  DM.cdsFreteCHASSI.AsString      := DM.cdsVeiculoCHASSI.AsString;
+  DM.cdsFreteCOR.AsString         := DM.cdsVeiculoCOR.AsString;
+
+  DM.cdsMarcas.Close;
+  DM.cdsMarcas.Open;
+
+  if DM.cdsMarcas.Locate('ID_MARCA',DM.cdsFreteID_MARCA.AsInteger,[]) then
+  begin
+    DM.cdsFreteMARCA.AsString   := DM.cdsMarcasNOME.AsString;
+  end;
+  DM.cdsModelos.Close;
+  DM.cdsModelos.Open;
+
+  if DM.cdsModelos.Locate('ID_MODELO',DM.cdsFreteID_MODELO.AsInteger,[]) then
+  begin
+    DM.cdsFreteMODELO.AsString   := DM.cdsModelosDESCRICAO.AsString;
+  end;
+  DBEdit16.SetFocus;
+end;
+
+end.
