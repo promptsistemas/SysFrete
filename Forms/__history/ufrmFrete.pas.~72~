@@ -132,6 +132,7 @@ type
     SpeedButton7: TSpeedButton;
     DBText2: TDBText;
     Label45: TLabel;
+    BB_IMPRIMIR: TBitBtn;
     procedure SpeedButton3Click(Sender: TObject);
     procedure SpeedButton2Click(Sender: TObject);
     procedure FormKeyPress(Sender: TObject; var Key: Char);
@@ -167,6 +168,7 @@ type
     { Private declarations }
     Procedure GerenciaBotoes;
     Procedure GerenciaBotoes2;
+    Procedure SomaTotal;
   public
     { Public declarations }
   end;
@@ -191,8 +193,10 @@ begin
   end;
 
   tp_operacao := 'Edit';
+  DM.cdsItemFrete.Open;
   DM.cdsItemFrete.Edit;
   GerenciaBotoes2;
+  SomaTotal;
   DBEdit32.SetFocus;
 
 
@@ -259,6 +263,7 @@ begin
     DM.cdsItemFrete.Delete;
     DM.cdsItemFrete.ApplyUpdates(0);
     ShowMessage('Registro Excluído!');
+    SomaTotal;
     GerenciaBotoes2;
   end
   else
@@ -490,6 +495,7 @@ begin
   BB_CANCELAR.Enabled := BB_GRAVAR.Enabled;
   BB_EDITAR.Enabled := BB_EXCLUIR.Enabled;
   BB_CONCLUIR.Enabled := BB_EXCLUIR.Enabled;
+  BB_IMPRIMIR.Enabled   := BB_NOVO.Enabled and not (DM.cdsFrete.IsEmpty);
   BB_SAIR.Enabled := BB_NOVO.Enabled;
   BB_PESQUISAR.Enabled:= BB_NOVO.Enabled;
   P_PRODUCAO.Enabled := not BB_NOVO.Enabled;
@@ -505,6 +511,18 @@ begin
   p_item.Enabled        := not BB_INCLUIR.Enabled;
 end;
 
+procedure TfrmFrete.SomaTotal;
+begin
+  DM.cdsDinamica.Close;
+  DM.cdsDinamica.IndexFieldNames:='';
+  DM.cdsDinamica.CommandText := ' SELECT SUM(I.QUANT * I.VL_UNIT) FROM TB_ITEM_FRETE I '+
+                                ' WHERE I.ID_FRETE = '+DM.cdsFreteID_FRETE.AsString;
+  DM.cdsDinamica.Open;
+
+  DM.cdsFrete.Edit;
+  DM.cdsFreteVL_CUSTO_FRETE.AsFloat := DM.cdsDinamica.Fields[0].AsFloat;
+  DM.cdsFrete.ApplyUpdates(0);
+end;
 
 procedure TfrmFrete.DBComboBox2Exit(Sender: TObject);
 begin
@@ -564,6 +582,7 @@ begin
     exit;
   end;
   DM.cdsServico.Open;
+  DM.cdsItemFrete.Open;
 
   if DM.cdsServico.Locate('ID_SERVICO',DBEdit32.Text,[]) then
   begin
@@ -625,7 +644,7 @@ begin
       else
       begin
         DM.cdsItemFrete.ApplyUpdates(0);
-        //SomaTotal;
+        SomaTotal;
         BB_INCLUIRClick(Self);
       end;
     end
@@ -640,6 +659,7 @@ begin
     if Application.MessageBox('Confirma Alteração deste Registro?','Confirmação',MB_ICONQUESTION+MB_YESNO)=IDYES then
     begin
       DM.cdsItemFrete.ApplyUpdates(0);
+      SomaTotal;
       BB_CANCClick(Self);
     end
     else
@@ -788,9 +808,9 @@ begin
   frmPesquisaPadrao.dbgPesquisa.Columns[1].FieldName:= 'VL_UNIT';
   frmPesquisaPadrao.dbgPesquisa.Columns[1].Width:= 180;
 
-  frmPesquisaPadrao.dbgPesquisa.Columns[2].Title.Caption := 'ID_SERVICO';
+{  frmPesquisaPadrao.dbgPesquisa.Columns[2].Title.Caption := 'ID_SERVICO';
   frmPesquisaPadrao.dbgPesquisa.Columns[2].FieldName:= 'Código';
-  frmPesquisaPadrao.dbgPesquisa.Columns[2].Width:= 80;
+  frmPesquisaPadrao.dbgPesquisa.Columns[2].Width:= 80;}
 
 
   frmPesquisaPadrao.ShowModal;

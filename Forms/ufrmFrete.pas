@@ -5,7 +5,8 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.Buttons, Vcl.StdCtrls, Vcl.DBCtrls,
-  Vcl.ExtCtrls, Data.DB, Vcl.Grids, Vcl.DBGrids, Vcl.Mask, Vcl.ComCtrls;
+  Vcl.ExtCtrls, Data.DB, Vcl.Grids, Vcl.DBGrids, Vcl.Mask, Vcl.ComCtrls,
+  QRCtrls, QuickRpt, qrpBaseCtrls;
 
 type
   TfrmFrete = class(TForm)
@@ -164,6 +165,7 @@ type
     procedure BB_CANCClick(Sender: TObject);
     procedure BB_EXCClick(Sender: TObject);
     procedure DBEdit36Exit(Sender: TObject);
+    procedure BB_IMPRIMIRClick(Sender: TObject);
   private
     { Private declarations }
     Procedure GerenciaBotoes;
@@ -182,7 +184,7 @@ implementation
 
 {$R *.dfm}
 
-uses U_LIB, UD_PESQUISA, uDM, uPesquisaPadrao;
+uses U_LIB, UD_PESQUISA, uDM, uPesquisaPadrao, uRelatorio;
 
 procedure TfrmFrete.BB_ALTERARClick(Sender: TObject);
 begin
@@ -373,6 +375,11 @@ begin
     end;
   end;
 
+end;
+
+procedure TfrmFrete.BB_IMPRIMIRClick(Sender: TObject);
+begin
+ frmRelatorio.QR_FRETE.Preview;
 end;
 
 procedure TfrmFrete.BB_INCLUIRClick(Sender: TObject);

@@ -5,7 +5,8 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.Buttons, Vcl.StdCtrls, Vcl.DBCtrls,
-  Vcl.ExtCtrls, Data.DB, Vcl.Grids, Vcl.DBGrids, Vcl.Mask, Vcl.ComCtrls;
+  Vcl.ExtCtrls, Data.DB, Vcl.Grids, Vcl.DBGrids, Vcl.Mask, Vcl.ComCtrls,
+  QRCtrls, QuickRpt, qrpBaseCtrls;
 
 type
   TfrmFrete = class(TForm)
@@ -130,6 +131,92 @@ type
     DBEdit40: TDBEdit;
     Label44: TLabel;
     SpeedButton7: TSpeedButton;
+    DBText2: TDBText;
+    Label45: TLabel;
+    BB_IMPRIMIR: TBitBtn;
+    PageControl3: TPageControl;
+    TabSheet4: TTabSheet;
+    QR_FRETE: TQRPQuickrep;
+    QRBand1: TQRBand;
+    QRLabel2: TQRLabel;
+    QRLabel3: TQRLabel;
+    QRLabel4: TQRLabel;
+    QRLabel5: TQRLabel;
+    QRLabel6: TQRLabel;
+    QRLabel7: TQRLabel;
+    QRLabel8: TQRLabel;
+    QRLabel9: TQRLabel;
+    QRLabel10: TQRLabel;
+    QRLabel11: TQRLabel;
+    QRLabel12: TQRLabel;
+    QRLabel13: TQRLabel;
+    QRLabel14: TQRLabel;
+    QRLabel15: TQRLabel;
+    QRLabel17: TQRLabel;
+    QRDBText1: TQRDBText;
+    QRDBText2: TQRDBText;
+    QRDBText3: TQRDBText;
+    QRDBText4: TQRDBText;
+    QRDBText5: TQRDBText;
+    QRDBText6: TQRDBText;
+    QRDBText7: TQRDBText;
+    QRDBText8: TQRDBText;
+    QRDBText9: TQRDBText;
+    QRDBText10: TQRDBText;
+    QRDBText11: TQRDBText;
+    QRDBText12: TQRDBText;
+    QRDBText13: TQRDBText;
+    QRDBText14: TQRDBText;
+    QRDBText16: TQRDBText;
+    QRLabel16: TQRLabel;
+    QRDBText15: TQRDBText;
+    QRLabel18: TQRLabel;
+    QRDBText17: TQRDBText;
+    QRLabel19: TQRLabel;
+    QRDBText18: TQRDBText;
+    QRLabel20: TQRLabel;
+    QRDBText19: TQRDBText;
+    QRLabel21: TQRLabel;
+    QRDBText20: TQRDBText;
+    QRLabel22: TQRLabel;
+    QRDBText21: TQRDBText;
+    QRLabel23: TQRLabel;
+    QRDBText22: TQRDBText;
+    QRLabel24: TQRLabel;
+    QRDBText23: TQRDBText;
+    QRLabel25: TQRLabel;
+    QRDBText24: TQRDBText;
+    QRLabel26: TQRLabel;
+    QRDBText25: TQRDBText;
+    QRDBText27: TQRDBText;
+    QRLabel29: TQRLabel;
+    QRDBText28: TQRDBText;
+    QRDBText29: TQRDBText;
+    QRLabel31: TQRLabel;
+    QRDBText30: TQRDBText;
+    QRDBRichText1: TQRDBRichText;
+    QRLabel43: TQRLabel;
+    QRDBText39: TQRDBText;
+    QRGroup1: TQRGroup;
+    QRLabel35: TQRLabel;
+    QRLabel36: TQRLabel;
+    QRLabel37: TQRLabel;
+    QRLabel38: TQRLabel;
+    QRLabel39: TQRLabel;
+    QRBand2: TQRBand;
+    QRDBText33: TQRDBText;
+    QRDBText34: TQRDBText;
+    QRDBText35: TQRDBText;
+    QRDBText36: TQRDBText;
+    QRDBText37: TQRDBText;
+    QRBand3: TQRBand;
+    QRLabel40: TQRLabel;
+    QRDBText38: TQRDBText;
+    QRBand4: TQRBand;
+    QRLabel1: TQRLabel;
+    QRLabel41: TQRLabel;
+    QRSysData1: TQRSysData;
+    QRLabel42: TQRLabel;
     procedure SpeedButton3Click(Sender: TObject);
     procedure SpeedButton2Click(Sender: TObject);
     procedure FormKeyPress(Sender: TObject; var Key: Char);
@@ -161,10 +248,12 @@ type
     procedure BB_CANCClick(Sender: TObject);
     procedure BB_EXCClick(Sender: TObject);
     procedure DBEdit36Exit(Sender: TObject);
+    procedure BB_IMPRIMIRClick(Sender: TObject);
   private
     { Private declarations }
     Procedure GerenciaBotoes;
     Procedure GerenciaBotoes2;
+    Procedure SomaTotal;
   public
     { Public declarations }
   end;
@@ -178,7 +267,7 @@ implementation
 
 {$R *.dfm}
 
-uses U_LIB, UD_PESQUISA, uDM, uPesquisaPadrao;
+uses U_LIB, UD_PESQUISA, uDM, uPesquisaPadrao, uRelatorio;
 
 procedure TfrmFrete.BB_ALTERARClick(Sender: TObject);
 begin
@@ -189,8 +278,10 @@ begin
   end;
 
   tp_operacao := 'Edit';
+  DM.cdsItemFrete.Open;
   DM.cdsItemFrete.Edit;
   GerenciaBotoes2;
+  SomaTotal;
   DBEdit32.SetFocus;
 
 
@@ -257,6 +348,7 @@ begin
     DM.cdsItemFrete.Delete;
     DM.cdsItemFrete.ApplyUpdates(0);
     ShowMessage('Registro Excluído!');
+    SomaTotal;
     GerenciaBotoes2;
   end
   else
@@ -366,6 +458,11 @@ begin
     end;
   end;
 
+end;
+
+procedure TfrmFrete.BB_IMPRIMIRClick(Sender: TObject);
+begin
+  QR_FRETE.Preview;
 end;
 
 procedure TfrmFrete.BB_INCLUIRClick(Sender: TObject);
@@ -488,6 +585,7 @@ begin
   BB_CANCELAR.Enabled := BB_GRAVAR.Enabled;
   BB_EDITAR.Enabled := BB_EXCLUIR.Enabled;
   BB_CONCLUIR.Enabled := BB_EXCLUIR.Enabled;
+  BB_IMPRIMIR.Enabled   := BB_NOVO.Enabled and not (DM.cdsFrete.IsEmpty);
   BB_SAIR.Enabled := BB_NOVO.Enabled;
   BB_PESQUISAR.Enabled:= BB_NOVO.Enabled;
   P_PRODUCAO.Enabled := not BB_NOVO.Enabled;
@@ -503,6 +601,18 @@ begin
   p_item.Enabled        := not BB_INCLUIR.Enabled;
 end;
 
+procedure TfrmFrete.SomaTotal;
+begin
+  DM.cdsDinamica.Close;
+  DM.cdsDinamica.IndexFieldNames:='';
+  DM.cdsDinamica.CommandText := ' SELECT SUM(I.QUANT * I.VL_UNIT) FROM TB_ITEM_FRETE I '+
+                                ' WHERE I.ID_FRETE = '+DM.cdsFreteID_FRETE.AsString;
+  DM.cdsDinamica.Open;
+
+  DM.cdsFrete.Edit;
+  DM.cdsFreteVL_CUSTO_FRETE.AsFloat := DM.cdsDinamica.Fields[0].AsFloat;
+  DM.cdsFrete.ApplyUpdates(0);
+end;
 
 procedure TfrmFrete.DBComboBox2Exit(Sender: TObject);
 begin
@@ -562,11 +672,13 @@ begin
     exit;
   end;
   DM.cdsServico.Open;
+  DM.cdsItemFrete.Open;
 
   if DM.cdsServico.Locate('ID_SERVICO',DBEdit32.Text,[]) then
   begin
     DM.cdsItemFreteID_SERVICO.AsInteger  := DM.cdsServicoID_SERVICO.AsInteger;
     DM.cdsItemFreteVL_UNIT.AsFloat       := DM.cdsServicoVL_UNIT.AsFloat;
+    DM.cdsItemFreteSERVICO.AsString      := DM.cdsServicoDESCRICAO.AsString;
     DBEdit34.SetFocus;
   end
   else
@@ -622,7 +734,7 @@ begin
       else
       begin
         DM.cdsItemFrete.ApplyUpdates(0);
-        //SomaTotal;
+        SomaTotal;
         BB_INCLUIRClick(Self);
       end;
     end
@@ -637,6 +749,7 @@ begin
     if Application.MessageBox('Confirma Alteração deste Registro?','Confirmação',MB_ICONQUESTION+MB_YESNO)=IDYES then
     begin
       DM.cdsItemFrete.ApplyUpdates(0);
+      SomaTotal;
       BB_CANCClick(Self);
     end
     else
@@ -785,9 +898,9 @@ begin
   frmPesquisaPadrao.dbgPesquisa.Columns[1].FieldName:= 'VL_UNIT';
   frmPesquisaPadrao.dbgPesquisa.Columns[1].Width:= 180;
 
-  frmPesquisaPadrao.dbgPesquisa.Columns[2].Title.Caption := 'ID_SERVICO';
+{  frmPesquisaPadrao.dbgPesquisa.Columns[2].Title.Caption := 'ID_SERVICO';
   frmPesquisaPadrao.dbgPesquisa.Columns[2].FieldName:= 'Código';
-  frmPesquisaPadrao.dbgPesquisa.Columns[2].Width:= 80;
+  frmPesquisaPadrao.dbgPesquisa.Columns[2].Width:= 80;}
 
 
   frmPesquisaPadrao.ShowModal;

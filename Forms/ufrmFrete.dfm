@@ -13,6 +13,7 @@ object frmFrete: TfrmFrete
   Font.Style = []
   OldCreateOrder = False
   Position = poScreenCenter
+  Scaled = False
   OnClose = FormClose
   OnKeyPress = FormKeyPress
   OnShow = FormShow
@@ -1609,7 +1610,7 @@ object frmFrete: TfrmFrete
           Height = 19
           CharCase = ecUpperCase
           Ctl3D = False
-          DataField = 'TEL_COMERCIAL'
+          DataField = 'TELEFONE'
           DataSource = DM.dsFrete
           ParentCtl3D = False
           ReadOnly = True
@@ -1975,96 +1976,115 @@ object frmFrete: TfrmFrete
           item
             Expanded = False
             FieldName = 'NR_NOTA'
+            Width = 64
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'VL_FRETE'
+            Width = 64
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'PESO_BRUTO'
+            Width = 64
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'PESO_LIQ'
+            Width = 64
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'VL_CUSTO_FRETE'
+            Width = 64
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'STATUS'
+            Width = 64
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'UF_ORIGEM'
+            Width = 64
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'CIDADE_ORIGEM'
+            Width = 64
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'UF_DESTINO'
+            Width = 64
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'CIDADE_DESTINO'
+            Width = 64
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'UF_CLIENTE'
+            Width = 64
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'CIDADE_CLIENTE'
+            Width = 64
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'CNPJ_CPF'
+            Width = 64
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'INSC_RG'
+            Width = 64
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'ENDERECO'
+            Width = 64
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'NUMERO'
+            Width = 64
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'COMPLEMENTO'
+            Width = 64
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'BAIRRO'
+            Width = 64
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'TELEFONE'
+            Width = 64
             Visible = True
           end
           item
@@ -2075,21 +2095,25 @@ object frmFrete: TfrmFrete
           item
             Expanded = False
             FieldName = 'TEL_COMERCIAL'
+            Width = 64
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'MARCA'
+            Width = 64
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'MODELO'
+            Width = 64
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'TEL_MOT'
+            Width = 64
             Visible = True
           end>
       end
@@ -2633,11 +2657,13 @@ object frmFrete: TfrmFrete
           item
             Expanded = False
             FieldName = 'VL_UNIT'
+            Width = 64
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'TOTAL'
+            Width = 64
             Visible = True
           end>
       end
@@ -2677,5 +2703,6 @@ object frmFrete: TfrmFrete
       FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFD9B3B1D9B3B1D9B3B1D9B3B1F6
       BFB1F6BFB1FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF}
     TabOrder = 11
+    OnClick = BB_IMPRIMIRClick
   end
 end

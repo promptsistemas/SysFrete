@@ -16,7 +16,8 @@ uses
   uCadModelos in 'Forms\uCadModelos.pas' {frmCadModelos},
   uCadVeiculo in 'Forms\uCadVeiculo.pas' {frmCadVeiculo},
   uSenha in 'Forms\uSenha.pas' {frmSenha},
-  ufrmFrete in 'Forms\ufrmFrete.pas' {frmFrete};
+  ufrmFrete in 'Forms\ufrmFrete.pas' {frmFrete},
+  uRelatorio in 'Forms\uRelatorio.pas' {frmRelatorio};
 
 {$R *.res}
 
@@ -30,5 +31,6 @@ begin
   Application.CreateForm(TfrmConsultaCPF, frmConsultaCPF);
   Application.CreateForm(TfrmPesquisaPadrao, frmPesquisaPadrao);
   Application.CreateForm(TfrmSenha, frmSenha);
+  Application.CreateForm(TfrmRelatorio, frmRelatorio);
   Application.Run;
 end.
