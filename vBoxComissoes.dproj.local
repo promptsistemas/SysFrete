@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2020/07/31 00:39:12.000.641,C:\SysFrete\Forms\uSenha.pas=</Transaction>
+    <Transaction>2020/07/31 00:39:58.000.039,=C:\SysFrete\Unit1.pas</Transaction>
+    <Transaction>2020/07/31 00:40:13.000.525,C:\SysFrete\Unit1.dfm=C:\SysFrete\Forms\uSenha.dfm</Transaction>
+    <Transaction>2020/07/31 00:40:13.000.525,C:\SysFrete\Unit1.pas=C:\SysFrete\Forms\uSenha.pas</Transaction>
+    <Transaction>2020/08/01 02:34:24.000.498,=C:\SysFrete\Unit1.pas</Transaction>
+    <Transaction>2020/08/01 02:35:00.000.097,C:\SysFrete\Unit1.dfm=C:\SysFrete\Forms\uFrmFrete.dfm</Transaction>
+    <Transaction>2020/08/01 02:35:00.000.097,C:\SysFrete\Unit1.pas=C:\SysFrete\Forms\uFrmFrete.pas</Transaction>
+    <Transaction>2020/08/03 02:55:14.000.330,C:\SysFrete\Forms\uFrmFrete.dfm=C:\SysFrete\Forms\uFrete.dfm</Transaction>
+    <Transaction>2020/08/03 02:55:14.000.330,C:\SysFrete\Forms\uFrmFrete.pas=C:\SysFrete\Forms\uFrete.pas</Transaction>
+    <Transaction>2020/08/03 03:02:29.000.143,C:\SysFrete\Forms\ufrmFrete.pas=C:\SysFrete\Forms\uFrete.pas</Transaction>
+    <Transaction>2020/08/03 03:02:29.000.143,C:\SysFrete\Forms\ufrmFrete.dfm=C:\SysFrete\Forms\uFrete.dfm</Transaction>
+    <Transaction>2020/08/13 02:30:03.000.325,=C:\SysFrete\Unit1.pas</Transaction>
+    <Transaction>2020/08/13 02:30:37.000.424,C:\SysFrete\Unit1.dfm=C:\SysFrete\Forms\uRelatorio.dfm</Transaction>
+    <Transaction>2020/08/13 02:30:37.000.424,C:\SysFrete\Unit1.pas=C:\SysFrete\Forms\uRelatorio.pas</Transaction>
+    <Transaction>2020/08/24 23:13:49.152,C:\vBox\vBoxComissoes.dproj=C:\vBox\SysFrete.dproj</Transaction>
+  </Transactions>
+</BorlandProject>
